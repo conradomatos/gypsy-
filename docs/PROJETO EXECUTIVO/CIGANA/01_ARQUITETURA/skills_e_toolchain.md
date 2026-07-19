@@ -33,7 +33,7 @@ tags: [gypsy, arquitetura]
 | Gráficos/dashboards (Monte Carlo, resumo) | `dataviz` | global | 1, 5 |
 | Manipular planilhas (dados fake, seed) | `xlsx` | ai_fabric skills-main | 1, 2 |
 | Commits e PRs | `commit-commands` | plugin oficial | todas |
-| Extração das fontes (destilação) | `extrair-fonte` | `../01_DESTILACAO/.claude/skills/` | paralela |
+| Extração das fontes (destilação) | `extrair-fonte` | `.claude/skills/ (repo)` | paralela |
 
 ## Agents
 

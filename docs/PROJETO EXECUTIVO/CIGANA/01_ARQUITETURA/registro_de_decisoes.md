@@ -13,6 +13,14 @@ Decisões novas entram no topo. Decisão revogada fica marcada, nunca apagada.
 
 ## 2026-07-19 — Sessão de retomada do plano (Conrado + Claude)
 
+### Subprojetos espelham a árvore de docs; destilação DENTRO do Gypsy
+- Trabalho fatiado em SP-00..SP-10 (ver `00_SUBPROJETOS.md`): Telas, Parâmetros,
+  Banco, C1/C2/C3, MC-001..MC-003 — um ciclo superpowers completo por subprojeto.
+- **Destilação movida para `destilacao/` na raiz do repo** (supersede "01_DESTILACAO
+  fora do repo" decidido mais cedo na mesma data). Planilhas-fonte continuam fora do
+  git (`.gitignore`); scripts, specs e CLAUDE.md próprio versionam.
+- Skill `extrair-fonte` movida para `.claude/skills/` do repo.
+
 ### Stack: Django + DRF + Postgres + uv (REVOGA React+Supabase de 2026-04-04)
 Mesmo padrão dos apps ALMOX e CONCILIADOR. Motivo: convergência dos apps da Concept
 para Django; reaproveitamento de padrões, docs e experiência entre projetos.

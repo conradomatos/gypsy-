@@ -13,4 +13,4 @@
 3. **Segredos em `.env`** (no `.gitignore`), nunca hardcoded. `.env.example` versionado.
 
 4. **Planilhas-fonte não versionam** (estão no `.gitignore`). Ficam em
-   `../01_DESTILACAO/fontes/` — read-only, nunca modificar.
+   `destilacao/fontes/` — read-only, nunca modificar.

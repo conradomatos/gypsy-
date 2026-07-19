@@ -97,5 +97,5 @@ Orçamento de referência inteiro × HOLLOS: **R$ 216.188,04**, divergências ex
 Instrumentação, Pintura, Cotações, Monte Carlo, Proposta PDF, deploy VPS/Coolify.
 
 ## Trilha paralela — Destilação (Spec 0)
-`../01_DESTILACAO/` segue no próprio ritmo. Precisa estar consolidada antes do seed
+`destilacao/` (SP-00) segue no próprio ritmo. Precisa estar consolidada antes do seed
 da Fase 2. Não bloqueia as Fases 0–1.

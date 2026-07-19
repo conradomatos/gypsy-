@@ -27,13 +27,17 @@ docs/
     └── 06_TELAS/                Specs das 8 áreas de navegação (telas primeiro)
 mockups/                         HTML clicável com dados fake (valida UX antes do código)
 referencias/                     Material de apoio (entrevistas, benchmarks)
+destilacao/                      SP-00 — data engineering (Spec 0): extrai e normaliza
+                                 as planilhas-fonte; alimenta o seed. CLAUDE.md próprio.
+                                 (fontes .xlsx ficam fora do git)
 .claude/rules/                   Regras do projeto (rascunho — versão final: Conrado)
+.claude/skills/extrair-fonte/    Skill de extração por fonte (destilação)
 ```
 
-## Projetos relacionados
+## Subprojetos
 
-- **Destilação (Spec 0)** — `../01_DESTILACAO/` (fora deste repo): data engineering
-  que extrai e normaliza os dados das planilhas-fonte. Alimenta o seed do banco.
+O trabalho é fatiado em SP-00..SP-10 espelhando a árvore de docs — ver
+`docs/PROJETO EXECUTIVO/CIGANA/00_SUBPROJETOS.md`.
 
 ## Marcos
 
