@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Django
+*.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# Ambiente
+.env
+.env.*
+!.env.example
+
+# IDE / SO
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+
+# Dados locais (planilhas-fonte não versionam)
+*.xlsx
+*.xlsm
+*.xlk
+!docs/**/*.xlsx
+
+# Claude Code local
+.claude/settings.local.json
