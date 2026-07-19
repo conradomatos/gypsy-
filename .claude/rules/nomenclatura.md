@@ -1,3 +1,6 @@
+> **RASCUNHO** (Claude, 2026-07-19) — proposta a partir das decisões da sessão.
+> A versão final destas regras será escrita pelo Conrado.
+
 # Nomenclatura
 
 - **Inglês 100%** para banco de dados, código Python, nomes de app, campos e API.

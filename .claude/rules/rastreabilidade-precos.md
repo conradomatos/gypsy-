@@ -1,3 +1,6 @@
+> **RASCUNHO** (Claude, 2026-07-19) — proposta a partir das decisões da sessão.
+> A versão final destas regras será escrita pelo Conrado.
+
 # Rastreabilidade de preços
 
 Todo número tem fonte. Preço, HH unitário e coeficiente de composição carregam:

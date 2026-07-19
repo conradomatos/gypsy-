@@ -1,3 +1,6 @@
+> **RASCUNHO** (Claude, 2026-07-19) — proposta a partir das decisões da sessão.
+> A versão final destas regras será escrita pelo Conrado.
+
 # Parâmetros — nada hardcoded
 
 1. Alíquotas, encargos, impostos, fatores de correção, queda de tensão admissível,

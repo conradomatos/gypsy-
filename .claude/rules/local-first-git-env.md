@@ -1,3 +1,6 @@
+> **RASCUNHO** (Claude, 2026-07-19) — proposta a partir das decisões da sessão.
+> A versão final destas regras será escrita pelo Conrado.
+
 # Local-first, git e segredos
 
 1. **Local-first.** Postgres via Docker, app roda na máquina do Conrado até validação

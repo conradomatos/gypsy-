@@ -1,3 +1,6 @@
+> **RASCUNHO** (Claude, 2026-07-19) — proposta a partir das decisões da sessão.
+> A versão final destas regras será escrita pelo Conrado.
+
 # Engine puro + testes obrigatórios
 
 1. **Engine puro.** Todo cálculo vive em `engine/` — Python puro, sem Django, sem ORM,

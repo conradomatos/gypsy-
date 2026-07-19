@@ -7,10 +7,50 @@ tags: [gypsy, arquitetura]
 
 # Registro de decisões — Gypsy
 
-Data: 2026-04-04
-Sessão: discussão de módulos, arquitetura e pipeline
+Decisões novas entram no topo. Decisão revogada fica marcada, nunca apagada.
 
 ---
+
+## 2026-07-19 — Sessão de retomada do plano (Conrado + Claude)
+
+### Stack: Django + DRF + Postgres + uv (REVOGA React+Supabase de 2026-04-04)
+Mesmo padrão dos apps ALMOX e CONCILIADOR. Motivo: convergência dos apps da Concept
+para Django; reaproveitamento de padrões, docs e experiência entre projetos.
+Engine de cálculo em Python puro (`engine/`), fora do Django.
+Docs revogados por esta decisão: `stack_tecnica.md`, `toolchain.md`, `deploy_pipeline.md`
+e `padroes_de_codigo.md` (partes React/Supabase) — reescrever quando o código começar.
+
+### Telas primeiro (REVOGA "engine primeiro" de 2026-04-04)
+Mockups HTML clicáveis das 8 áreas, com dados fake, validados com Sandro/Guilherme
+ANTES de modelos e engines. Motivo: validar o produto visualmente é mais barato que
+descobrir erro de conceito com o engine pronto. O rigor do engine (puro + testado +
+golden test R$ 216.188,04) permanece — muda só a ordem.
+Specs de tela em `06_TELAS/`, mockups em `mockups/` (raiz do repo).
+
+### Casa do projeto: repo gypsy- + diretório 02_GYPSY
+- Repo: github.com/conradomatos/gypsy- (main)
+- Local: `04. ORCAMENTACAO_POR_MODELAGEM_FINANCEIRA/02_GYPSY/`
+- `01_DESTILACAO/` é subprojeto irmão (fora do repo), segue intocado
+- `docs/` deste repo é a fonte de verdade; o gypsy-vault (Obsidian) vira histórico
+
+### Processo de desenvolvimento: skills superpowers + agents (sem skill nova)
+Pipeline operacional baseado nas skills do plugin superpowers (brainstorming →
+writing-plans → executing-plans → TDD → review) com os agents existentes (planner,
+reviewer, debugger, Explore). Mapa completo em `skills_e_toolchain.md`.
+Regras do projeto em `.claude/rules/` — **rascunho do Claude; versão final será
+escrita pelo Conrado.**
+
+### MVP: reproduzir um orçamento completo
+Materiais + MO + equipamentos + encargos + BDI com composições manuais, batendo o
+golden test (R$ 216.188,04 × HOLLOS). Dimensionador, Monte Carlo e leitura de edital
+são pós-MVP.
+
+---
+
+## 2026-04-04 — Sessão: discussão de módulos, arquitetura e pipeline
+
+> Decisões de stack e pipeline desta sessão foram REVOGADAS em 2026-07-19 (ver acima).
+> Decisões de módulos, motores e parâmetros permanecem válidas.
 
 ## Decisões de módulos
 
