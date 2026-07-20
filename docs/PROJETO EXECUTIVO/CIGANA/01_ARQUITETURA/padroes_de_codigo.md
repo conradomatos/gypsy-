@@ -2,198 +2,109 @@
 tipo: referencia
 status: ativo
 area: gypsy
-tags: [gypsy, arquitetura]
+tags: [gypsy, arquitetura, padroes]
+revisado: 2026-07-19
 ---
 
 # Padrões de código — Gypsy
 
-## Estrutura de pastas
+> **Escopo:** princípios de como escrever código nas três camadas. Nomes de pastas de
+> código **ainda não estão congelados** — as estruturas abaixo são **PROPOSTO** até o
+> scaffold ser aprovado no subprojeto correspondente.
+> Stack em [`stack_tecnica.md`](stack_tecnica.md) · nomenclatura em
+> [`convencoes_nomenclatura.md`](convencoes_nomenclatura.md).
+> Versão anterior (engines TS + Supabase + RLS) em
+> [`_HISTORICO/`](_HISTORICO/padroes_de_codigo.supabase.2026-04-04.md).
+
+## Regra mãe: separação de responsabilidades
+
+Cálculo não conhece web. Web não conhece cálculo. O que os liga é a camada de serviço.
 
 ```
-src/
-├── engines/              ← lógica pura, ZERO React, ZERO Supabase
-│   ├── composicao-hh.ts           (MC-1)
-│   ├── bdi-markup.ts              (MC-2)
-│   ├── reajuste-commodities.ts    (MC-3)
-│   ├── estimador-equipe.ts        (M-005)
-│   ├── dimensionador/
-│   │   ├── forca.ts               (NBR 5410 — bitola, corrente)
-│   │   ├── infra.ts               (ocupação, enchimento)
-│   │   ├── alimentadores.ts
-│   │   ├── iluminacao.ts
-│   │   ├── instrumentacao.ts
-│   │   ├── pintura.ts
-│   │   └── spda.ts
-│   └── __tests__/                 ← testes obrigatórios
-│       ├── composicao-hh.test.ts
-│       ├── bdi-markup.test.ts
-│       ├── forca.test.ts
-│       └── golden.test.ts         ← validação contra planilha real
-├── data/                 ← tabelas estáticas de normas e referências
-│   ├── nbr5410/                   (capacidade corrente, queda tensão, agrupamento)
-│   ├── nbr5419/                   (SPDA)
-│   └── index.ts
-├── types/                ← schemas centralizados
-│   ├── motor.ts
-│   ├── trecho.ts
-│   ├── assembly.ts
-│   ├── orcamento.ts
-│   └── parametros.ts
-├── hooks/                ← React hooks (wrappers dos engines)
-├── pages/                ← UI (páginas)
-├── components/           ← UI reutilizável
-├── providers/            ← Context providers
-│   └── ParametrosProvider.tsx
-├── lib/                  ← utilitários (formatCurrency, etc)
-└── integrations/         ← Supabase client, tipos gerados
-
+Frontend (React)  →  API (DRF)  →  Services (regra de negócio)  →  Engine (cálculo puro)
+                                          ↑
+                                     Models (ORM/persistência)
 ```
 
-> **Nota:** Tabelas de NBR (5410, 5419) ficam em `src/data/` como constantes TypeScript — são referências normativas estáticas. Catálogos de fabricantes (Siemens, WEG) ficam no banco de dados via `materials` + `material_prices` — são dados dinâmicos com preço e data-base.
+---
 
-## Regra #1: engines são funções puras
+## Backend — Python + Django + DRF
 
-Um engine recebe dados e retorna resultado. Sem useState, sem useEffect, sem Supabase direto, sem import de React.
+- **Separação por domínio:** organizar por área de negócio (orçamento, dimensionador,
+  base de custos, parâmetros…), não por tipo técnico.
+- **Services concentram a regra de negócio.** Uma operação de escrita não-trivial vive
+  num service, não no serializer nem na view.
+- **Leitura via selectors/queries dedicados** quando a consulta for não-trivial — manter
+  querysets complexos fora das views.
+- **Serializers e views são finos:** serializer valida e (de)serializa; view orquestra
+  (autentica, chama service/selector, devolve). Nenhum dos dois carrega o núcleo da regra.
+- **Migrations controladas:** revisadas, nomeadas, uma intenção por migration.
+- **Autorização** por auth do Django + permissions do DRF. Não usar RLS como mecanismo
+  principal de autorização (era Supabase, revogado).
 
-```typescript
-// engines/composicao-hh.ts — CORRETO
-export function calcularCustoHH(
-  funcao: Funcao,
-  parametros: ParametrosProjeto
-): CustoHH {
-  const salarioBase = funcao.valorMensal;
-  const encargos = salarioBase * parametros.encargos.totalHorista;
-  const alimentacao = parametros.alimentacao.cafe + parametros.alimentacao.almoco + parametros.alimentacao.jantar;
-  // ... cálculo puro
-  return { custoHoraSemBDI, custoHoraComBDI, decomposicao };
-}
+Estrutura de exemplo (**PROPOSTO** — não congelar):
+
+```
+backend/
+  <dominio>/
+    models.py
+    services.py       # regra de negócio (escrita)
+    selectors.py      # consultas (leitura)
+    serializers.py    # (de)serialização + validação
+    views.py          # orquestração DRF
+    migrations/
 ```
 
-O hook é o wrapper que conecta engine ao React:
+---
 
-```typescript
-// hooks/useComposicaoHH.ts
-export function useComposicaoHH(funcaoId: string) {
-  const { parametros } = useParametros();
-  const { data: funcao } = useQuery(['funcao', funcaoId], ...);
-  return useMemo(() => calcularCustoHH(funcao, parametros), [funcao, parametros]);
-}
+## Engine — Python puro (regra inviolável)
+
+- **Python puro, isolado do Django.** Sem `import django`, sem ORM, sem HTTP, sem I/O.
+- **Entra dado, sai resultado.** Recebe dataclasses/dicts, devolve resultado. Sem efeito
+  colateral, **determinístico**.
+- **`Decimal` para dinheiro — nunca `float`.** Arredondamento explícito onde a norma/HOLLOS
+  exigir.
+- **Teste obrigatório (pytest).** Engine sem teste não mergeia.
+- **Golden test:** o orçamento de referência reproduzido pelo engine bate a HOLLOS em
+  **R$ 216.188,04**; divergência item a item tem de ser explicável.
+- **Dados normativos (NBR 5410/14039/5419)** ficam em **estrutura própria do engine**,
+  como constantes versionadas — não no banco, não por tenant. (Local exato: **PROPOSTO**,
+  a fixar no subprojeto do engine.)
+- **Rastreabilidade:** todo número carrega fonte, data-base e flag de imposto quando
+  aplicável (ver regra do projeto `rastreabilidade-precos`).
+
+Estrutura de exemplo (**PROPOSTO** — não congelar):
+
+```
+engine/
+  <modulo>/            # composicao_hh, bdi, dimensionador, ...
+  data/                # tabelas normativas (constantes)
+  tests/               # pytest, casos do Sandro + valores HOLLOS
 ```
 
-## Regra #2: testes obrigatórios nos engines
+---
 
-Cálculos críticos — se errar, o orçamento inteiro está errado. Vitest com casos do Sandro.
+## Frontend — React + TypeScript
 
-```typescript
-// engines/__tests__/forca.test.ts
-import { calcularBitola } from '../dimensionador/forca';
+- **TypeScript strict.** Nunca `any` nem `@ts-ignore`.
+- **Vite + Tailwind + shadcn/ui** como base (ver `stack_tecnica.md`).
+- **Componentes reutilizáveis**, coerentes com um **design system** (a firmar junto com
+  os mockups — SP-02).
+- **Chamadas à API ficam fora dos componentes visuais.** A camada de dados (client da API,
+  hooks de fetching) é separada do componente que só apresenta.
+- **Validação de dados** na entrada de formulários e nas fronteiras da API.
+- O frontend consome **exclusivamente a API REST** — nunca acessa banco diretamente.
 
-test('motor 50cv/380V/100m retorna bitola correta', () => {
-  const resultado = calcularBitola({
-    potencia: 50, // cv
-    tensao: 380,  // V
-    distancia: 100, // m
-    fatorPotencia: 0.85,
-    fatorServico: 1.15,
-  });
-  expect(resultado.bitolaFinal).toBe(35); // mm²
-  expect(resultado.criterioDecisivo).toBe('queda_tensao');
-});
-```
-## Regra #3: golden test contra planilha real
+Estrutura de exemplo (**PROPOSTO** — não congelar): definida no SP-02/scaffold do frontend.
 
-O orçamento da HOLLOS (R$ 216.188,04) é o benchmark. Rodar pelo CostAI com mesmos inputs, resultado tem que bater.
+---
 
-```typescript
-// engines/__tests__/golden.test.ts
-import { calcularOrcamentoCompleto } from '../orcamento-completo';
-import { HOLLOS_INPUTS } from './fixtures/hollos-inputs';
+## Anti-patterns (não fazer)
 
-test('orçamento HOLLOS reproduz valor da planilha', () => {
-  const resultado = calcularOrcamentoCompleto(HOLLOS_INPUTS);
-  expect(resultado.totalComImpostos).toBeCloseTo(216188.04, 0);
-  expect(resultado.hxhTotal).toBeCloseTo(2377.84, 0);
-  expect(resultado.valorHHMedio).toBeCloseTo(61.29, 0);
-});
-```
-
-## Regra #4: parâmetros como context React
-
-ParametrosProvider carrega uma vez, distribui via context. Engines recebem como argumento.
-
-```typescript
-// providers/ParametrosProvider.tsx
-const ParametrosContext = createContext<Parametros>(null);
-
-export function ParametrosProvider({ orcamentoId, children }) {
-  const { data: globais } = useQuery(['parametros-globais'], fetchGlobais);
-  const { data: projeto } = useQuery(['parametros-projeto', orcamentoId], fetchProjeto);
-
-  // merge: projeto sobrescreve globais (defaults com override)
-  const parametros = useMemo(() => mergeParametros(globais, projeto), [globais, projeto]);
-
-  return <ParametrosContext.Provider value={parametros}>{children}</ParametrosContext.Provider>;
-}
-
-export const useParametros = () => useContext(ParametrosContext);
-```
-
-## Regra #5: tipos centralizados
-
-```typescript
-// types/parametros.ts
-export interface ParametrosProjeto {
-  encargos: PerfilEncargos;
-  alimentacao: { cafe: number; almoco: number; jantar: number };
-  horasImprodutivas: { percentual: number; deslocamento: number; dds: number; liberacao: number };
-  localObra: { uf: string; distanciaCasaObra: number };
-  faturamentoDireto: boolean;
-  prazoSemanas: number;
-  perfilCliente: string;
-}
-```
-## Padrões herdados do PWC (mantidos)
-
-### Página CRUD
-```typescript
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
-// shadcn/ui: Card, Table, Dialog, Select, Input, Button, Badge
-```
-
-### Navegação (ao adicionar módulo/página)
-1. `Layout.tsx` → adicionar em `routeToArea`
-2. `AppSidebar.tsx` → adicionar em `areaNavItems`
-3. `App.tsx` → registrar `<Route>`
-
-### Supabase (ao criar tabelas)
-- RLS habilitado + policies CRUD para `authenticated`
-- Trigger `update_updated_at_column` em todas as tabelas
-- Campos padrão: `id` (UUID), `created_at`, `updated_at`, `created_by` (FK auth.users)
-- Textos em PT-BR
-
-### Formulários
-- react-hook-form + zod para validação
-- Toast de sucesso/erro via sonner
-- NUNCA usar `SelectItem value=""` (causa React crash)
-
-### RLS Policies
-```sql
-CREATE POLICY "nome_policy" ON tabela
-  FOR SELECT TO authenticated
-  USING (true); -- MVP single-user, restringir depois
-```
-
-## Resumo: melhorias vs PWC
-
-| PWC (atual) | Gypsy (melhorado) |
-|---|---|
-| Cálculo misturado com UI | `src/engines/` puro, sem React |
-| Zero testes | Vitest nos engines + golden tests |
-| Tipos espalhados | `src/types/` centralizado |
-| Parâmetros buscados ad hoc | `ParametrosProvider` context |
-| Sem validação de regressão | Golden test contra planilha real |
+- Regra de cálculo dentro de view, serializer, componente React ou template.
+- `float` para dinheiro.
+- Engine importando Django/ORM/HTTP.
+- Frontend acessando banco direto ou embutindo lógica de custo.
+- Número sem fonte/data-base (ver `rastreabilidade-precos`).
+- Parâmetro (alíquota, encargo, fator) hardcoded no código (ver `parametros-nao-hardcode`).
+- Copiar fórmula da HOLLOS às cegas — dimensionamento vem da norma.

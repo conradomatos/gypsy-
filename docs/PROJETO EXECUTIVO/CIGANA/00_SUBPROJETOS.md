@@ -48,5 +48,5 @@ SP-00 Destilação roda em trilha paralela — não bloqueia SP-01..SP-03.
 | SP | Status |
 |----|--------|
 | SP-00 | Em andamento — HOLLOS extraída parcialmente, MURILO na fila |
-| SP-01 | Em andamento — falta regras finais (Conrado) e CLAUDE.md |
+| SP-01 | Fundação documental concluída (docs vigentes, 8 rules, CLAUDE.md) — aguardando gate final do Conrado |
 | SP-02..SP-10 | Não iniciados |

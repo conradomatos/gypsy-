@@ -2,59 +2,56 @@
 tipo: referencia
 status: ativo
 area: gypsy
-tags: [gypsy, arquitetura]
+tags: [gypsy, arquitetura, toolchain]
+revisado: 2026-07-19
 ---
 
-# Toolchain profissional — Gypsy
+# Toolchain — Gypsy
 
-## Stack de ferramentas
+> **Escopo:** ferramentas usadas para **desenvolver, testar, validar e operar** o projeto.
+> As tecnologias que compõem o produto estão em [`stack_tecnica.md`](stack_tecnica.md) —
+> não duplicar aqui.
+>
+> Classificação: **DECIDIDO** · **PROPOSTO** · **PENDENTE**.
+> Versão anterior (Supabase CLI/Vitest/dbdiagram/Coolify) em
+> [`_HISTORICO/`](_HISTORICO/toolchain.supabase.2026-04-04.md).
 
-### Gestão de projeto
-| Ferramenta | Uso | Status |
-|---|---|---|
-| Jira | Épicos, features, tasks, sprints (projeto IP101) | Já existe |
-| Obsidian | Documentação técnica, arquitetura, specs, decisões | Já montado |
+> **Importante:** este documento **não registra comandos** (build, lint, test, migration,
+> scripts de frontend, Docker). Comandos concretos entram no `CLAUDE.md` da raiz e/ou nos
+> READMEs **quando o scaffold existir**. Hoje não há código; inventar comando seria erro.
 
-### Desenvolvimento
-| Ferramenta | Uso | Status |
-|---|---|---|
-| Claude Code | Dev principal (branches claude/*) | Já usa |
-| Claude Chat | Copiloto — arquitetura, pesquisa, review | Já usa |
-| GitHub | Repo, branches, PRs | Configurar (repo novo) |
-| VS Code | Edição manual quando necessário | Já tem |
+## Ferramentas DECIDIDAS
 
-### Modelagem de dados
-| Ferramenta | Uso | Status |
-|---|---|---|
-| dbdiagram.io | ERD visual, exporta SQL pra Postgres | Configurar |
-| Supabase CLI | Migrations versionadas, db diff automático | Configurar |
+Adotadas ou em uso comprovado no projeto.
 
-### Qualidade
-| Ferramenta | Uso | Status |
-|---|---|---|
-| Vitest | Testes unitários dos engines | Configurar com scaffold |
-| GitHub Actions | CI automático: testes + build a cada PR | Configurar |
-| Golden tests | Validação contra planilha HOLLOS | Configurar com seed |
-
-### Infraestrutura
-| Ferramenta | Uso | Status |
-|---|---|---|
-| Supabase | Banco + auth + storage + edge functions | Criar projeto novo |
-| Coolify | Deploy automático (segundo app no VPS) | Configurar |
-| Caddy | Reverse proxy + HTTPS automático | Já existe no VPS |
-| Docker | Container do frontend (Node + Nginx) | Via Coolify |
-
-### Monitoramento (pós-deploy)
-| Ferramenta | Uso | Status |
-|---|---|---|
-| Sentry | Captura erros em produção (free tier) | Configurar no deploy |
-| Supabase Dashboard | Logs, métricas API, uso de banco | Já vem com Supabase |
-
-### O que NÃO usar (e por quê)
-| Ferramenta | Por que não |
+| Ferramenta | Finalidade |
 |---|---|
-| Figma | Dev solo + shadcn + front-review skill é mais rápido |
-| Storybook | Overkill pra dev solo com shadcn |
-| Docker local | Coolify resolve build e deploy |
-| Terraform/Pulumi | Infra simples demais pra IaC |
-| Datadog/NewRelic | Sentry + Supabase dashboard é suficiente |
+| **uv** | Gerência de Python e dependências do backend/engine |
+| **Git** | Versionamento (branch → PR → merge) |
+| **Ambiente local** | Desenvolvimento local-first (Postgres local, API local, frontend local) |
+| **Vite** | Build e dev server do frontend (faz parte da stack; ver `stack_tecnica.md`) |
+
+## Ferramentas PROPOSTAS
+
+Registradas para validação futura. **Nenhuma é decisão definitiva.** Cada uma será
+avaliada no momento indicado; até lá, não configurar como obrigatória nem documentar
+seus comandos.
+
+| Ferramenta | Finalidade | Ganho esperado | Validar quando | Status |
+|---|---|---|---|---|
+| **Ruff** | Lint + format Python | Padrão de código consistente, rápido | Início do scaffold backend | PROPOSTO |
+| **Pyright** | Type-check Python | Tipagem estática no backend/engine | Início do scaffold backend | PROPOSTO |
+| **pytest** | Testes backend + engine | Base do TDD e do golden test | 1º engine (Fase 3) | PROPOSTO |
+| **DRF-Spectacular** | Gera schema **OpenAPI** do DRF | Contrato de API versionado e verificável | Ao expor os 1ºs endpoints | PROPOSTO |
+| **Cliente TS gerado** | Cliente TypeScript a partir do OpenAPI | Frontend tipado ponta a ponta, menos drift | Depois do OpenAPI estável | PROPOSTO |
+| **Vitest** | Testes unitários do frontend | Cobertura de lógica de UI/hooks | Quando o frontend tiver lógica | PROPOSTO |
+| **Playwright** | Testes end-to-end | Validar fluxos de tela reais | Após telas integradas à API | PROPOSTO |
+| **Storybook** | Catálogo de componentes | Desenvolver/validar UI isolada | Se a UI crescer o suficiente | PROPOSTO |
+| **GitHub Actions** | CI (lint + testes por PR) | Gate automático antes do merge | Quando houver testes a rodar | PROPOSTO |
+| **Observabilidade** | Logs/erros/métricas em produção | Diagnóstico pós-deploy | Junto da decisão de produção | PROPOSTO |
+
+## Pendências de toolchain (PENDENTE)
+
+- Escolha final entre as ferramentas propostas — depende do início do código.
+- Ferramenta de observabilidade específica — atrelada à decisão de infraestrutura de
+  produção, que é **PENDENTE** (ver [`deploy_pipeline.md`](deploy_pipeline.md)).

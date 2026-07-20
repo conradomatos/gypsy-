@@ -4,8 +4,15 @@ Motor de orçamentação por modelagem financeira da Concept Engenharia.
 Substitui as planilhas de orçamento (HOLLOS/MURILO) por um sistema com base de
 custos consolidada, composições auditáveis, dimensionador elétrico e análise de risco.
 
-**Stack:** Django + DRF, Postgres, Python via `uv` — mesmo padrão dos apps ALMOX e
-CONCILIADOR. Local-first: roda local até validação; deploy depois.
+**Stack (vigente):**
+- **Frontend:** React + TypeScript + Vite + Tailwind CSS + shadcn/ui
+- **Backend:** Django + DRF + PostgreSQL (Python via `uv`)
+- **Engine de cálculo:** Python puro, isolado (sem ORM/HTTP/I/O)
+- **Integração:** API REST
+
+Local-first: roda local até validação; infraestrutura de produção ainda **pendente**.
+Detalhe em `docs/PROJETO EXECUTIVO/CIGANA/01_ARQUITETURA/stack_tecnica.md`; índice
+autoritativo por assunto em `docs/INDEX.md`.
 
 **Estado atual: planejamento.** Nenhum código escrito. A documentação está sendo
 migrada do vault Obsidian (gypsy-vault) para `docs/`.

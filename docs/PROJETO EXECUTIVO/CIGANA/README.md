@@ -14,18 +14,28 @@ Substitui Arquimedes + planilhas Excel + calculadora NBR 5410 por plataforma ún
 
 ```
 01_ARQUITETURA/     — Stack, padrões, pipeline, decisões, convenções
-02_BANCO DE DADOS/  — Schema DBML (source of truth), specs por domínio
+02_BANCO DE DADOS/  — Specs por domínio (schema ainda NÃO aprovado — ver abaixo)
 03_PARAMETROS/      — Parâmetros globais (empresa) e de projeto (orçamento)
 04_MODULOS/         — Specs funcionais por módulo (C1 funcionais, C2 transversais, C3 saída)
 05_MOTORES DE CALCULO/ — MC-001 Composição HH, MC-002 BDI, MC-003 Reajuste
 ```
 
+## Índice autoritativo
+
+O índice de "qual documento é fonte de verdade por assunto" é **`docs/INDEX.md`**.
+Consulte-o antes de assumir qualquer documento como vigente.
+
 ## Source of truth
 
-- **Schema:** `02_BANCO DE DADOS/costai_schema.dbml` (inglês, DBML)
+- **Índice geral:** `../../INDEX.md` (documento autoritativo por assunto)
 - **Decisões:** `01_ARQUITETURA/registro_de_decisoes.md`
 - **Pipeline:** `01_ARQUITETURA/pipeline_de_execucao.md`
 - **Mapa 37 abas → módulos:** `../../PRE PROJETO/GATE_APRESENTACAO/BLOCO_001/discussao_modulos_planilha_hollos.md`
+
+> **Modelo de dados ainda não aprovado.** Não há schema vigente (o antigo
+> `costai_schema.dbml` não existe/foi descartado). O schema será definido no
+> **subprojeto responsável pelo banco de dados (SP-04)**, após validação das telas e das
+> regras de negócio. As specs em `02_BANCO DE DADOS/` são preliminares, não schema aprovado.
 
 ## Golden test
 

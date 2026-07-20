@@ -9,6 +9,57 @@ tags: [gypsy, arquitetura]
 
 Decisões novas entram no topo. Decisão revogada fica marcada, nunca apagada.
 
+Cada item é classificado: **DECIDIDO** · **PROPOSTO** · **PENDENTE** · **REVOGADO** · **HISTÓRICO**.
+
+---
+
+## 2026-07-19 (SP-01) — Consolidação da fundação documental (Conrado + Claude)
+
+Sessão dedicada ao SP-01 (Arquitetura): eliminar contradições da era React/Supabase,
+adequar a documentação à arquitetura vigente e arquivar o histórico sem apagá-lo.
+
+### Frontend — permanece (DECIDIDO)
+A revogação de 2026-07-19 revoga **React + Supabase como conjunto arquitetural**, e
+**não** o React como frontend. Permanecem, como camada de apresentação que consome a
+API Django/DRF:
+- **React**, **TypeScript**, **Vite**, **Tailwind CSS**, **shadcn/ui**.
+
+### Backend e engine — vigentes (DECIDIDO)
+- Backend: **Django + Django REST Framework + PostgreSQL**, Python gerenciado por **uv**.
+- Engine de cálculo: **Python puro**, isolado do Django — sem ORM, sem HTTP, sem I/O nas
+  funções de cálculo; determinístico e testável direto. **Valores monetários em `Decimal`,
+  nunca `float`.**
+- Integração: **API REST** entre frontend e backend.
+
+### Revogado (REVOGADO)
+Supabase, Edge Functions, Deno, cliente Supabase, backend implementado no Supabase e
+**RLS como mecanismo principal de autorização**. Autorização vigente = auth do Django +
+permissions do DRF. Docs da era antiga arquivados em `01_ARQUITETURA/_HISTORICO/` com
+banner `REVOGADO` — conteúdo preservado, não orienta implementação.
+
+### Deploy — Coolify abandonado; infraestrutura PENDENTE
+- **Coolify não será usado no Gypsy** (REVOGADO). Removido das docs vigentes.
+- Nenhum provedor (VPS/PaaS/cloud) é escolhido nesta etapa. Projeto segue **local-first**.
+- **Infraestrutura de produção = PENDENTE**, a decidir só após: MVP validado, golden test
+  concluído, requisitos de segurança/backup/observabilidade, estimativas de uso e custo.
+- `deploy_pipeline.md` documenta apenas o **fluxo lógico independente de provedor**.
+
+### Ferramentas propostas (PROPOSTO — não decidido)
+Registradas para validação futura, sem status de decisão: OpenAPI/DRF-Spectacular,
+geração de cliente TypeScript, Ruff, Pyright, pytest, Vitest, Playwright, Storybook,
+GitHub Actions, observabilidade. Detalhe e critério de validação em `toolchain.md`.
+
+### Modelo de dados — PENDENTE
+Schema (incl. DBML) **não aprovado**. Será definido no subprojeto de banco de dados,
+após validação das telas e das regras de negócio. Localização das tabelas normativas
+(NBR) em estrutura própria do engine é **PROPOSTA**, não congelada.
+
+### Escopo desta sessão
+SP-01 consolida a **fundação documental**. `.claude/rules/` (finalização) e o `CLAUDE.md`
+da raiz são as últimas etapas do SP-01, nesta ordem, cada uma com aprovação do Conrado.
+SP-02 (Telas) tem trabalho preliminar (spec T-01 + LOG) mas segue **bloqueado até o gate
+do SP-01**.
+
 ---
 
 ## 2026-07-19 — Sessão de retomada do plano (Conrado + Claude)

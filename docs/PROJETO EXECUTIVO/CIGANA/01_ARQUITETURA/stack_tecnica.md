@@ -3,63 +3,109 @@ tipo: referencia
 status: ativo
 area: gypsy
 tags: [gypsy, arquitetura]
+revisado: 2026-07-19
 ---
 
 # Stack técnica — Gypsy
 
-## Decisão: mesma stack do PWC
+> **Escopo:** este documento descreve **a arquitetura e as tecnologias que compõem o
+> produto**. As ferramentas de desenvolvimento, teste e operação estão em
+> [`toolchain.md`](toolchain.md) — não duplicar aqui.
+>
+> Classificação usada: **DECIDIDO** · **PROPOSTO** · **PENDENTE** · **REVOGADO**.
+> Versão anterior (React + Supabase) em [`_HISTORICO/`](_HISTORICO/stack_tecnica.react-supabase.2026-04-04.md).
 
-Trocar de stack não se justifica. O ganho de velocidade por reaproveitar patterns, skills do Code e infraestrutura existente supera qualquer benefício teórico de outra tecnologia.
+## Objetivo da arquitetura
 
-## Frontend
+Separar com clareza **apresentação**, **API**, **domínio** e **cálculo**, de modo que o
+motor de orçamentação seja auditável e testável isoladamente, e que a interface possa
+evoluir sem tocar na lógica de custo. A regra de custo é o ativo crítico do Gypsy — ela
+não pode ficar acoplada a framework web, a ORM nem a UI.
 
-| Tecnologia | Versão | Uso |
-|---|---|---|
-| React | 18 | UI framework |
-| TypeScript | 5.x | Tipagem estática |
-| Vite | 5.x | Build tool + dev server |
-| shadcn/ui | latest | Component library (Radix + Tailwind) |
-| Tailwind CSS | 3.x | Utility-first CSS |
-| Recharts | 2.x | Gráficos, Monte Carlo, dashboards |
-| TanStack Query | 5.x | Server state (useQuery/useMutation) |
-| react-hook-form | 7.x | Formulários |
-| zod | 3.x | Validação de schemas |
-| sonner | latest | Toast notifications |
-| date-fns | 2.x | Manipulação de datas |
-| Lucide React | latest | Ícones |
-| mathjs | latest | Cálculos NBR 5410 (bitola, corrente) |
-| Vitest | latest | Testes unitários nos engines |
-## Backend / database
+## Camadas
 
-| Tecnologia | Detalhes |
+```
+┌────────────────────────────┐
+│ Frontend (React SPA)        │  React + TS + Vite + Tailwind + shadcn/ui
+└──────────────┬─────────────┘
+               │  API REST (JSON)
+┌──────────────▼─────────────┐
+│ API (Django REST Framework) │  serializers, views, autenticação, permissões
+└──────────────┬─────────────┘
+               │  chamadas de domínio
+┌──────────────▼─────────────┐
+│ Domínio (Django app)        │  models, services (regra de negócio), persistência
+└──────────────┬─────────────┘
+               │  entra dado puro, sai resultado puro
+┌──────────────▼─────────────┐
+│ Engine de cálculo (Python)  │  puro, isolado, sem Django/ORM/I/O, Decimal
+└────────────────────────────┘
+```
+
+- O **frontend** nunca fala com o banco; só com a API REST.
+- A **API** orquestra: valida entrada, chama services/engine, serializa a saída.
+- O **domínio** detém models e regras de negócio; persiste via ORM do Django.
+- O **engine** recebe dados (dataclasses/dicts) e devolve resultado — sem efeitos colaterais.
+
+## Frontend — DECIDIDO
+
+| Tecnologia | Papel |
 |---|---|
-| Supabase | Projeto SEPARADO do PWC (novo projeto) |
-| PostgreSQL | Via Supabase (managed) |
-| RLS | Row Level Security em todas as tabelas |
-| Edge Functions | Deno/TypeScript (cálculos pesados, PDF) |
-| Auth | Supabase Auth (email/password) |
-| Storage | Supabase Storage (planilhas, propostas) |
+| React | Framework de UI (SPA) |
+| TypeScript | Tipagem estática (strict) |
+| Vite | Build e dev server do frontend |
+| Tailwind CSS | Estilo utilitário |
+| shadcn/ui | Biblioteca de componentes (Radix + Tailwind) |
 
-## Infraestrutura
+O frontend consome a API Django/DRF via REST. Bibliotecas de apoio (data-fetching,
+formulários, validação, gráficos) serão escolhidas quando as telas forem implementadas
+— **não decididas nesta etapa**.
 
-| Componente | Detalhes |
+## Backend — DECIDIDO
+
+| Tecnologia | Papel |
 |---|---|
-| VPS | Mesmo do PWC — Hostinger 72.60.13.91 |
-| Deploy | Coolify (segundo app, mesmo servidor) |
-| Reverse Proxy | Caddy (HTTPS automático) |
-| Containers | Docker v28.2.2 |
-| CI | GitHub webhooks → Coolify |
+| Django | Framework de aplicação (models, admin, auth) |
+| Django REST Framework | Camada de API REST |
+| PostgreSQL | Banco de dados relacional |
+| uv | Gerência de Python e dependências |
 
-## Domínio
+**Autorização:** autenticação do Django + permissions do DRF. **RLS não é o mecanismo de
+autorização** da aplicação (era a abordagem Supabase, revogada).
 
-A definir. Candidatos: `app.gypsy.com.br` ou `gypsy.powerconcept.com.br`
+## Engine de cálculo — DECIDIDO
 
-## O que NÃO herdar do PWC
+- **Python puro**, em pacote próprio, **isolado do Django**.
+- **Sem ORM, sem HTTP, sem leitura/gravação em banco, sem I/O** dentro das funções de cálculo.
+- Funções **determinísticas** — mesma entrada, mesma saída.
+- **Valores monetários em `Decimal`, nunca `float`.**
+- **Testável diretamente** (pytest), incluindo o **golden test** contra a HOLLOS
+  (R$ 216.188,04). Detalhe de padrões em [`padroes_de_codigo.md`](padroes_de_codigo.md).
 
-- God Mode / RBAC complexo — MVP é single-user (Concept), RBAC vem depois
-- Integrações externas (Omie, Secullum, Evolution) — Gypsy não tem
-- Edge Functions do PWC — Gypsy terá as próprias
+## Integração frontend ↔ backend — DECIDIDO / PROPOSTO
 
-## Quando mover cálculo pro servidor
+- **DECIDIDO:** contrato via **API REST** (JSON).
+- **PROPOSTO** (validar quando o código começar): documentação **OpenAPI** gerada por
+  **DRF-Spectacular** e **geração automática de cliente TypeScript** a partir do schema.
+  Ver [`toolchain.md`](toolchain.md).
 
-Se o dimensionador pra 500 motores + 200 trechos ficar lento no browser, mover o engine pra Edge Function. A arquitetura `src/engines/` permite isso sem refatorar — TypeScript puro, roda no browser ou no servidor.
+## Desenvolvimento e produção
+
+- **Local-first (DECIDIDO):** roda na máquina do Conrado — Postgres local, API local,
+  frontend local — até a validação do MVP. Local ≠ mock: banco e API de verdade.
+- **Produção (PENDENTE):** nenhuma infraestrutura de produção (VPS/PaaS/cloud) foi
+  escolhida. A decisão fica para depois do golden test e da definição de requisitos de
+  segurança, backup, observabilidade e custo. Ver [`deploy_pipeline.md`](deploy_pipeline.md).
+
+## Tecnologias revogadas (REVOGADO — 2026-07-19)
+
+Não usar, não recomendar em documentação vigente: **Supabase**, **Edge Functions**,
+**Deno**, **cliente Supabase**, **backend no Supabase**, **RLS como autorização principal**,
+**Coolify**. Histórico preservado em [`_HISTORICO/`](_HISTORICO/).
+
+## Tecnologias propostas (PROPOSTO — não decididas)
+
+OpenAPI, DRF-Spectacular, cliente TypeScript gerado, Ruff, Pyright, pytest, Vitest,
+Playwright, Storybook, GitHub Actions, observabilidade. Finalidade e critério de
+validação de cada uma em [`toolchain.md`](toolchain.md). Registrá-las aqui **não** as
+torna decisão.

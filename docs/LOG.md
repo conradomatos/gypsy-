@@ -6,6 +6,36 @@
 
 ---
 
+## 2026-07-19 (SP-01) — Adequação da fundação para Django + React (Conrado + Claude)
+
+**Feito:**
+- Branch `chore/adequacao-fundacao-django-react` criada a partir da main local.
+- Auditoria estrutural de `01_ARQUITETURA/` + INDEX: contradições React/Supabase mapeadas.
+- Histórico preservado em `01_ARQUITETURA/_HISTORICO/` (4 cópias React/Supabase com banner
+  REVOGADO + README de política); corpos verificados byte-a-byte (md5 == original).
+- Docs canônicos reescritos para a stack vigente (Django+DRF+React+Postgres+engine Python
+  puro): `stack_tecnica`, `toolchain`, `deploy_pipeline`, `padroes_de_codigo`,
+  `convencoes_nomenclatura`, `pendencias_arquitetura`; `registro_de_decisoes` com entrada
+  SP-01; `INDEX` corrigido (schema PENDENTE, sem `costai_schema.dbml`).
+- READMEs gerais corrigidos (raiz completa a stack; CIGANA remove schema inexistente).
+- Dívidas de migração de SP-04/05/07 (RLS, Supabase auth, Edge Functions) e branding CostAI
+  registradas em `pendencias_arquitetura.md`, sem tocar nos docs donos.
+- `.claude/rules/` finalizadas: 6 rascunhos → **8 rules** numeradas (governança, subprojetos/
+  gates, arquitetura, engine/testes, dados/parâmetros, backend/frontend, nomenclatura,
+  git/segurança/comunicação).
+- **`CLAUDE.md` da raiz escrito** (índice operacional curto).
+
+**Estado:** SP-01 (fundação documental) fechado; aguardando gate final do Conrado.
+Commit na branch, sem push (push para main é manual).
+
+**Pendências ao sair:**
+- [ ] Conrado: gate final do SP-01 + push/merge da branch.
+- [ ] Dívidas de migração nos SP-04/05/07 (ver `pendencias_arquitetura.md`).
+- [ ] Branding "CostAI" em `PRE PROJETO/GATE_APRESENTACAO/*` (pendência separada).
+- [ ] Desbloquear SP-02 (Telas) só após o gate do SP-01.
+
+---
+
 ## 2026-07-19 — Retomada do projeto (Conrado + Claude)
 
 **Feito:**

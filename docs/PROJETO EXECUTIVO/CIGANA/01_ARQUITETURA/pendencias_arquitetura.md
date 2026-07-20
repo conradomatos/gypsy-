@@ -2,86 +2,86 @@
 tipo: referencia
 status: ativo
 area: gypsy
-tags: [gypsy, arquitetura]
+tags: [gypsy, arquitetura, pendencias]
+revisado: 2026-07-19
 ---
 
 # Itens pendentes de definição — Arquitetura Gypsy
 
-## 1. Schema do banco (modelo de dados)
+> Classificação: **PENDENTE** (a decidir) · **PROPOSTO** (sugerido, não decidido).
+> Documentos vigentes de arquitetura estão em `01_ARQUITETURA/` (canônicos); os revogados,
+> em `_HISTORICO/`. Nenhuma pendência abaixo autoriza escrever código nesta etapa.
 
-Status: PENDENTE — definir quando detalhar cada módulo individualmente.
+## 1. Modelo de dados — PENDENTE
 
-Tabelas core necessárias (lista preliminar):
+**Schema não aprovado.** Não há schema vigente e **não existe DBML aprovado**. Será
+definido no **subprojeto responsável pelo banco de dados (SP-04)**, após a validação das
+telas (SP-02) e das regras de negócio. As specs `02_BANCO DE DADOS/BD-1..BD-6` são
+material preliminar de referência, não schema aprovado, e ainda precisam ser convertidas
+para nomenclatura inglesa quando o schema for desenhado.
 
-### Orçamento
-- `orcamentos` — metadados (cliente, obra, local, tipo, prazo, revisão)
-- `parametros_projeto` — override dos globais por orçamento
+> Nota vigente (também no INDEX): "Modelo de dados ainda não aprovado. Será definido no
+> subprojeto responsável pelo banco de dados, após validação das telas e regras de negócio."
 
-### Dimensionador (M-001)
-- `motores` — dados de placa (potência, tensão, corrente, FP, partida)
-- `trechos` — rota, distância, tipo infra
-- `motores_trecho` — N:N motor × trecho
-- `resultados_dimensionamento` — bitola, eletroduto, terminações calculadas
+## 2. Infraestrutura de produção — PENDENTE
 
-### Motor de estimativa (M-002)
-- `wbs_nos` — hierarquia da WBS (área/local/prédio)
-- `assemblies` — composições parametrizáveis
-- `itens_assembly` — materiais + MO + equipamento de cada assembly
-- `itens_orcamento` — itens lançados (do dimensionador + manuais)
+Nenhum provedor escolhido (Coolify abandonado, sem substituto). Decisão só após MVP
+validado, golden test concluído e definição de segurança, backup, observabilidade,
+estimativas de uso e custo. Ver [`deploy_pipeline.md`](deploy_pipeline.md).
 
-### Base de custos (M-003)
-- `ref_insumos` — catálogo mestre de materiais
-- `ref_precos` — preços por fonte/fornecedor/data
-- `ref_funcoes` — funções com salário base
-- `ref_encargos` — alíquotas por grupo (A/B/C/D) por perfil
-- `ref_equipamentos` — catálogo com custo/dia
+## 3. Toolchain — ferramentas PROPOSTAS pendentes de validação
 
-### Custos operacionais (M-004)
-- `custos_mob_desmob` — equipe × dias × custo
-- `custos_canteiro` — itens × dias
-- `custos_equipamentos_obra` — equipamentos × dias
-- `custos_seguros` — tipo × valor
-- `custos_seguranca` — exames × efetivo
-- `custos_engenharia` — Hxh × custo
-- `custos_despesas_gerenciais` — itens × quantidade
+Ruff, Pyright, pytest, DRF-Spectacular (OpenAPI), cliente TypeScript gerado, Vitest,
+Playwright, Storybook, GitHub Actions, observabilidade. Cada uma será validada no momento
+próprio — ver [`toolchain.md`](toolchain.md). Não são decisões.
 
-### Parâmetros globais
-- `parametros_globais` — chave/valor com tipo
-- `perfis_encargos` — templates por regime tributário
-- `ref_impostos` — alíquotas por UF
+## 4. Dados normativos (NBR) — localização PROPOSTA
 
-## 2. CLAUDE.md do CostAI
+Tabelas NBR (5410/14039/5419) ficam em **estrutura própria do engine** como constantes
+versionadas (não no banco, não por tenant). O **caminho exato** (`engine/data/` ou
+equivalente) é **PROPOSTO** e será fixado no subprojeto do engine. Ver
+[`padroes_de_codigo.md`](padroes_de_codigo.md).
 
-Status: PENDENTE — escrever quando iniciar o repo. Deve conter:
-- Stack (referência ao doc stack_tecnica.md)
-- Padrões (referência ao doc padroes_de_codigo.md)
-- Convenções (referência ao doc convencoes_nomenclatura.md)
-- Anti-patterns (lista do que NÃO fazer)
-- Regras invioláveis (engines puros, testes obrigatórios, golden test)
-- Módulos e navegação (referência ao doc)
-- Deploy (referência ao doc)
+## Pendências de migração por subprojeto
 
-## 3. Schema de tipos TypeScript
+Contradições da era React/Supabase encontradas em documentos **fora do SP-01** (banco,
+módulos, saída). **Não foram alteradas nesta sessão** — a correção pertence ao subprojeto
+dono, no gate indicado. Registradas aqui como dívida de migração.
 
-Status: PENDENTE — definir junto com o schema do banco. 
-Arquivo: `src/types/` — um arquivo por domínio.
+| Caminho exato | Problema | Tecnologia antiga | SP responsável | Gate de correção | Impacto se não corrigir |
+|---|---|---|---|---|---|
+| `02_BANCO DE DADOS/000.md` | Declara "schema autoritativo em `costai_schema.dbml`" (inexistente) e seção **RLS** | DBML CostAI + RLS | **SP-04** | Desenho e aprovação do schema | Induz uso de schema inexistente e de RLS como autorização |
+| `02_BANCO DE DADOS/tabelas_operacionais.md` | `users` "vinculados a **`auth.users` do Supabase**" (FK `auth_user_id`) | Supabase Auth | **SP-04** | Modelagem de usuários/auth | Modelo de autenticação incorreto (deve ser auth do Django) |
+| `04_MODULOS/C1 - MODULOS FUNCIONAIS/M-001_DIMENSIONADOR/M-001.1_forca_(motores).md` | Task **T-101** "Criar migration + **RLS**" | RLS | **SP-05** | Implementação do M-001.1 | Task orienta criar RLS |
+| `04_MODULOS/C1 - MODULOS FUNCIONAIS/M-001_DIMENSIONADOR/M-001.2_infra_(trechos).md` | Task **T-131** "Criar migration + **RLS**" | RLS | **SP-05** | Implementação do M-001.2 | Task orienta criar RLS |
+| `04_MODULOS/C1 - MODULOS FUNCIONAIS/M-002_MOTOR_DE_ESTIMATIVA/M-002.2_assemblies_parametrizaveis.md` | Task **T-202** "migrations + **RLS** + triggers" | RLS | **SP-05** | Implementação do M-002.2 | Task orienta criar RLS |
+| `04_MODULOS/C3 - MODULO SAIDA (RESULTADOS)/M-006.1_resumo_de_precos.md` e `M-006.3_proposta_pdf_excel.md` | "**Edge Function** existe (generate-budget-pdf)" | Edge Functions (Supabase/Deno) | **SP-07** | Implementação do M-006 (saída) | Aponta função Supabase inexistente no backend Django |
+| `PROJETO EXECUTIVO/CIGANA/02_BANCO DE DADOS/000.md`, specs `BD-1..BD-6` | Nomenclatura de tabelas/colunas em português; a definir em inglês | — (nomenclatura) | **SP-04** | Desenho do schema | Retrabalho de nomes; divergência com `convencoes_nomenclatura.md` |
 
-## 4. Tabelas de NBRs e características de fabricantes
+### Pendência documental separada — branding "CostAI"
 
-Status: DECIDIDO (2026-04-07)
+Os documentos de negócio em `PRE PROJETO/GATE_APRESENTACAO/` (ex.:
+`BLOCO_001/discussao_modulos_planilha_hollos.md`, `visao_geral.md`) usam o branding antigo
+**"CostAI"** de forma difusa. **Não alterado nesta sessão.** Fica como pendência
+documental separada: substituir "CostAI" → "Gypsy" nesses docs de pré-projeto quando forem
+revisados. Impacto: baixo (são referência de negócio, não orientam implementação), mas
+mantém branding inconsistente.
 
-- **Tabelas de NBR (5410, 5419, etc.):** `src/data/` como constantes TypeScript exportadas. São tabelas estáticas de referência normativa (capacidade de corrente por bitola, fator de agrupamento, queda de tensão). Não vão no banco porque não mudam por tenant nem por orçamento — mudam só quando a norma é revisada.
-- **Características de fabricantes (catálogo Siemens, WEG, etc.):** Banco de dados via `materials` + `material_prices` + `pricebooks`. São dados dinâmicos com preço, data-base, e fornecedor. Entram via importação (Excel/BC3) e ficam no Supabase.
+## 5. Fundação documental — etapas finais do SP-01 (ordem)
 
-Estrutura `src/data/`:
-```
-src/data/
-├── nbr5410/
-│   ├── current-capacity.ts      (tabelas de capacidade de corrente)
-│   ├── voltage-drop.ts          (fatores de queda de tensão)
-│   ├── grouping-factors.ts      (fatores de agrupamento)
-│   └── conduit-fill.ts          (taxa de enchimento)
-├── nbr5419/
-│   └── spda.ts                  (tabelas SPDA)
-└── index.ts                     (re-exports)
-```
+1. **`.claude/rules/`** — hoje RASCUNHO; versão final aprovada pelo Conrado. **Etapa
+   anterior ao CLAUDE.md.**
+2. **`CLAUDE.md` da raiz** — **última etapa do SP-01**. Índice operacional curto e
+   autoritativo, referenciando os docs vigentes; **sem** inventar comandos de build/lint/
+   test/migration e **sem** duplicar `.claude/rules/`. Só depois de (1) aprovado.
+
+Checklist do futuro `CLAUDE.md` (referenciar **documentos vigentes**):
+- Stack → [`stack_tecnica.md`](stack_tecnica.md)
+- Toolchain → [`toolchain.md`](toolchain.md)
+- Padrões → [`padroes_de_codigo.md`](padroes_de_codigo.md)
+- Nomenclatura → [`convencoes_nomenclatura.md`](convencoes_nomenclatura.md)
+- Módulos e navegação → [`modulos_e_navegacao.md`](modulos_e_navegacao.md)
+- Pipeline → [`pipeline_de_execucao.md`](pipeline_de_execucao.md)
+- Deploy → [`deploy_pipeline.md`](deploy_pipeline.md)
+- Regras invioláveis → `.claude/rules/` (engine puro + testes, golden test, parâmetros,
+  rastreabilidade, nomenclatura, local-first)

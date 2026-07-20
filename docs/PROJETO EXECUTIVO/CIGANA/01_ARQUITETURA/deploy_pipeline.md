@@ -2,63 +2,71 @@
 tipo: referencia
 status: ativo
 area: gypsy
-tags: [gypsy, arquitetura]
+tags: [gypsy, arquitetura, deploy]
+revisado: 2026-07-19
 ---
 
 # Deploy pipeline — Gypsy
 
-## Fluxo do dia a dia (desenvolvimento)
+> **Escopo:** o **fluxo lógico** do código até produção, **independente de provedor**.
+> Nenhuma infraestrutura de produção foi escolhida — ver "Infraestrutura" abaixo.
+> Classificação: **DECIDIDO** · **PENDENTE**. Versão anterior (Vite + Supabase + Coolify)
+> em [`_HISTORICO/`](_HISTORICO/deploy_pipeline.supabase.2026-04-04.md).
+
+## Princípios
+
+- **Local-first (DECIDIDO):** todo desenvolvimento e validação acontecem localmente até
+  o MVP fechar. Deploy só entra em cena depois do golden test.
+- **Independente de provedor:** o pipeline lógico não pressupõe VPS, PaaS nem cloud
+  específica. A etapa de execução em produção é abstrata até a infraestrutura ser decidida.
+
+## Fluxo lógico
 
 ```
-1. git checkout -b claude/nome-do-modulo     ← cria branch
-2. Claude Code edita arquivos locais         ← escreve engine + teste + hook + tela
-3. npx vitest run                            ← roda testes no terminal (obrigatório)
-4. npm run dev                               ← testa no browser localhost:5173
-5. git add . && git commit                   ← commita local
-6. git push origin claude/nome-do-modulo     ← sobe pro GitHub
-7. PR no GitHub                              ← GitHub Actions roda testes
-8. Merge na main                             ← só se CI verde
-9. Coolify detecta push → build → deploy     ← automático
+desenvolvimento local
+  → branch
+  → revisão
+  → testes automatizados
+  → aprovação
+  → merge
+  → geração de artefato
+  → homologação (futura)
+  → aprovação
+  → produção (futura)
 ```
 
-## Onde cada coisa vive
+| Etapa | O que é | Status |
+|---|---|---|
+| Desenvolvimento local | Postgres, API e frontend rodando na máquina | DECIDIDO |
+| Branch | Trabalho isolado por fatia (`branch → PR`) | DECIDIDO |
+| Revisão | Code review antes do merge (agent `reviewer`) | DECIDIDO |
+| Testes automatizados | pytest/engine + golden test verdes | PROPOSTO (toolchain) |
+| Aprovação | Gate humano (Conrado; Sandro/Guilherme quando aplicável) | DECIDIDO |
+| Merge | Só com gates verdes e sem trabalho paralelo conflitante | DECIDIDO |
+| Geração de artefato | Empacotar backend + engine + build do frontend | PENDENTE (forma a definir) |
+| Homologação | Ambiente de validação pré-produção | PENDENTE |
+| Produção | Execução para usuários finais | PENDENTE |
 
-```
-LOCAL (tua máquina):
-  D:\00 - CLAUDE_CODE\01. PROJETOS\04-GYPSY\
-    src/engines/           ← Code escreve aqui
-    npx vitest run         ← testa aqui
-    npm run dev            ← roda aqui, browser localhost:5173
+## Infraestrutura de produção — PENDENTE
 
-GITHUB (remoto):
-    git push               ← código sobe pra cá
-    PR + GitHub Actions    ← CI roda testes automaticamente
-    merge na main          ← só se testes passarem
+**Nenhum provedor foi escolhido.** Coolify foi abandonado (REVOGADO); não há substituto
+definido, e este documento **não recomenda** VPS, PaaS ou cloud nesta etapa.
 
-VPS (produção):
-    Coolify                ← detecta merge, faz build + deploy
-    app.costai.com.br      ← usuário acessa aqui
-```
+A decisão de infraestrutura será tomada **somente após**:
 
-## Diferenças do PWC
+- validação funcional do MVP;
+- conclusão do golden test (R$ 216.188,04);
+- definição dos requisitos de segurança;
+- definição de backup e recuperação;
+- estimativa de usuários, processamento e armazenamento;
+- análise de custo e de manutenção;
+- definição de observabilidade.
 
-- Projeto Supabase SEPARADO (novo projeto, novo banco)
-- Segundo app no Coolify (mesmo VPS 72.60.13.91)
-- Repo GitHub separado (a definir nome)
-- Domínio separado (a definir)
+Rollback, backup e observabilidade são **pendências futuras**, atreladas a essa decisão.
 
-## Testes antes do merge
+## Revogado (REVOGADO — 2026-07-19)
 
-```
-1. Vitest → rodar engines/__tests__/ (obrigatório)
-2. Golden test → validar contra HOLLOS (obrigatório)
-3. Build → vite build passa sem erro
-4. Merge → só depois dos 3 acima
-```
-
-## Coolify
-
-- Mesmo servidor do PWC
-- Porta diferente
-- Caddy roteia pelo domínio
-- Env vars VITE_* via Dockerfile ARG (build time)
+Não usar como vigente: **Coolify**, **Supabase**, **Edge Functions**, `app.costai.com.br`,
+e variáveis `VITE_*` como configuração de **backend**. Referências antigas preservadas
+apenas em [`_HISTORICO/`](_HISTORICO/deploy_pipeline.supabase.2026-04-04.md) e no
+`registro_de_decisoes.md`.
