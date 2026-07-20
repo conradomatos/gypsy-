@@ -4,8 +4,15 @@ Motor de orçamentação por modelagem financeira da Concept Engenharia.
 Substitui as planilhas de orçamento (HOLLOS/MURILO) por um sistema com base de
 custos consolidada, composições auditáveis, dimensionador elétrico e análise de risco.
 
-**Stack:** Django + DRF, Postgres, Python via `uv` — mesmo padrão dos apps ALMOX e
-CONCILIADOR. Local-first: roda local até validação; deploy depois.
+**Stack (vigente):**
+- **Frontend:** React + TypeScript + Vite + Tailwind CSS + shadcn/ui
+- **Backend:** Django + DRF + PostgreSQL (Python via `uv`)
+- **Engine de cálculo:** Python puro, isolado (sem ORM/HTTP/I/O)
+- **Integração:** API REST
+
+Local-first: roda local até validação; infraestrutura de produção ainda **pendente**.
+Detalhe em `docs/PROJETO EXECUTIVO/CIGANA/01_ARQUITETURA/stack_tecnica.md`; índice
+autoritativo por assunto em `docs/INDEX.md`.
 
 **Estado atual: planejamento.** Nenhum código escrito. A documentação está sendo
 migrada do vault Obsidian (gypsy-vault) para `docs/`.
@@ -14,24 +21,30 @@ migrada do vault Obsidian (gypsy-vault) para `docs/`.
 
 ```
 docs/
-├── PRE_PROJETO/                 Visão estratégica (charter, benchmark, personas)
-└── PROJETO_EXECUTIVO/GYPSY/
-    ├── 01_ARQUITETURA/          Stack, decisões, pipeline de execução
-    ├── 02_BANCO_DE_DADOS/       Specs de tabela (modelos Django, inglês)
-    ├── 03_PARAMETROS/           Parâmetros globais + por projeto
+├── INDEX.md                     Índice: documento autoritativo por assunto
+├── PRE PROJETO/                 Visão estratégica (charter, gates, Monte Carlo, DOCS_WORD)
+└── PROJETO EXECUTIVO/CIGANA/
+    ├── 01_ARQUITETURA/          Decisões, pipeline de execução, skills e agents
+    ├── 02_BANCO DE DADOS/       Specs de tabela (BD-1..BD-6, orçamentos, RBAC)
+    ├── 03_PARAMETROS/           Parâmetros globais (B2) + por projeto (B1)
     ├── 04_MODULOS/              M-000 Cadastro · M-001 Dimensionador · M-002 Estimativa
     │                            M-003 Base de custos · M-004 Custos operacionais
     │                            M-005 Estimador de equipe · M-006 Saída/Resultados
-    ├── 05_MOTORES/              MC-001 Composição HH · MC-002 BDI/Markup · MC-003 Reajuste
+    ├── 05_MOTORES DE CALCULO/   MC-001 Composição HH · MC-002 BDI/Markup · MC-003 Reajuste
     └── 06_TELAS/                Specs das 8 áreas de navegação (telas primeiro)
 mockups/                         HTML clicável com dados fake (valida UX antes do código)
 referencias/                     Material de apoio (entrevistas, benchmarks)
+destilacao/                      SP-00 — data engineering (Spec 0): extrai e normaliza
+                                 as planilhas-fonte; alimenta o seed. CLAUDE.md próprio.
+                                 (fontes .xlsx ficam fora do git)
+.claude/rules/                   Regras do projeto (rascunho — versão final: Conrado)
+.claude/skills/extrair-fonte/    Skill de extração por fonte (destilação)
 ```
 
-## Projetos relacionados
+## Subprojetos
 
-- **Destilação (Spec 0)** — `../01_DESTILACAO/` (fora deste repo): data engineering
-  que extrai e normaliza os dados das planilhas-fonte. Alimenta o seed do banco.
+O trabalho é fatiado em SP-00..SP-10 espelhando a árvore de docs — ver
+`docs/PROJETO EXECUTIVO/CIGANA/00_SUBPROJETOS.md`.
 
 ## Marcos
 
