@@ -13,6 +13,29 @@ Cada item é classificado: **DECIDIDO** · **PROPOSTO** · **PENDENTE** · **REV
 
 ---
 
+## 2026-07-19 (SP-02) — Fluxo de telas: Claude Code especifica, Claude Design prototipa
+
+Fluxo **padrão** (DECIDIDO) para produzir telas:
+1. **Claude Code → especifica** o funcionamento: descritivo funcional em `06_TELAS/`.
+2. **Claude Design → protótipo** interativo (fora do repo), a partir do descritivo.
+3. **Conrado + Sandro/Guilherme → validam** o fluxo.
+4. **Claude Code → implementa em React**.
+
+- **Papel do Claude Code:** especifica e implementa; **não** produz o protótipo visual
+  por padrão. Direção visual (paleta, tipografia, densidade) é decidida no Claude Design.
+- **Rota rápida (LEVE):** se o Conrado quiser gerar algo rápido sem o Design, pode pedir
+  um mockup direto ao Claude Code. É exceção sob demanda, não o padrão. Não é camisa de força.
+- **Fonte de verdade:** comportamento/regra = descritivo em `06_TELAS/` (canônico);
+  visual = protótipo validado (referência); implementação = React. Conflito de
+  *comportamento* → o descritivo vence; de *aparência* → o protótipo vence.
+- **`frontend-design`** é ferramenta da **implementação React** (etapa 4), não da prototipagem.
+- **`mockups/`** deixa de ser onde o Claude Code escreve HTML; guarda, se útil, referência
+  dos protótipos validados (opcional).
+- **Etapa 5 — "Claude Design recebe os componentes reais": PROPOSTO.** Mecanismo (Storybook,
+  export de componentes, screenshots) ainda não definido; não adotar como decisão até definir.
+
+---
+
 ## 2026-07-19 (SP-01) — Consolidação da fundação documental (Conrado + Claude)
 
 Sessão dedicada ao SP-01 (Arquitetura): eliminar contradições da era React/Supabase,

@@ -67,3 +67,65 @@ Centro de comando. O que o Sandro vê ao abrir um orçamento.
 - Lista vazia: empty state com CTA "Criar primeiro orçamento"
 - Hub recém-criado: todos os cards em "vazio", totais zerados
 - Snapshot aberto (revisão antiga): banner read-only "REV-N congelada em DD/MM — visualização"
+
+---
+
+## Descritivo para o Claude Design (SP-02)
+
+> Texto para colar no Claude Design e gerar o protótipo interativo. Descreve **o que a
+> tela faz e contém** — a **direção visual é decisão do Claude Design**. Deriva das seções
+> acima (aprovadas); em conflito, as seções acima mandam. Fluxo em
+> `../01_ARQUITETURA/registro_de_decisoes.md` (2026-07-19, SP-02).
+
+**Produto.** Gypsy — motor de orçamentação da Concept (montagem elétrica industrial).
+UI em **PT-BR**. Usuário: orçamentista. Orçamentos é a **área-mãe**: todo o resto vive
+dentro de um orçamento. Este protótipo **fixa o padrão base** (navegação, tabela,
+formulário) que as outras 7 áreas herdam.
+
+**Shell (comum a todas as telas).** Navegação lateral com as 8 áreas — Home ·
+**Orçamentos** · Dimensionador · Base de custos · Custos operacionais · Planejamento ·
+Relatórios · Configurações. Barra superior com contexto (onde estou) + busca.
+
+**Escopo: 3 telas.**
+
+1. **Lista** (`/orcamentos`) — porta de entrada.
+   - Tabela: Nº · Cliente · Obra · Local/UF · Tipo (Industrial/Predial) · REV vigente ·
+     Status · Valor total · Atualizado em.
+   - Status (precisam se distinguir à vista): Rascunho · Em elaboração · Enviado · Ganho · Perdido.
+   - Busca (cliente/obra/nº) + filtros (status, tipo). Ação primária: **Novo orçamento**.
+   - Ações por linha: Abrir · Duplicar · Nova revisão. Linha expansível: histórico de
+     revisões (snapshots read-only, com data e valor).
+   - Vazio: chamada "Criar primeiro orçamento".
+
+2. **Cadastro** (`/orcamentos/novo`) — mínimo (~30 s).
+   - Campos: Cliente (seleção + criação rápida inline) · Obra · Local (cidade/UF) ·
+     Tipo (Industrial/Predial) · Data · Observação.
+   - Automáticos, não editáveis: Nº sequencial · REV-00 · status Rascunho.
+   - Deixar explícito: **herda 100% dos parâmetros globais**; nenhum parâmetro aparece aqui.
+   - Ao salvar → Hub.
+
+3. **Hub** (`/orcamentos/:id`) — centro de comando.
+   - Topo: identificação (nº, cliente, obra, REV, status) + **totais ao vivo**: Custo
+     direto · BDI · Preço de venda · HH total (zerados até os módulos alimentarem).
+   - **Cards de etapa** com status (vazio / em andamento / concluído), em ordem sequencial:
+     Dimensionador → Estimativa (WBS) → Equipe → Custos Operacionais → Resumo.
+   - Card lateral **Parâmetros do Projeto**: "herdando globais" ou "N overrides"; caminho
+     para ajustar encargos/impostos/fatores deste orçamento.
+   - Ações: Nova revisão (congela snapshot, cria REV-N+1 editável) · Duplicar · Exportar (futuro).
+   - Vazio (recém-criado): cards em "vazio", totais zerados.
+   - Revisão antiga: banner read-only "REV-N congelada em DD/MM — visualização".
+
+**Regras de comportamento (fixas no protótipo).**
+- Revisão = snapshot imutável; a lista mostra a revisão vigente.
+- Totais são derivados dos módulos, **nunca digitados**.
+- Cadastro herda parâmetros globais; override é ato posterior, no Hub.
+
+**O Claude Design decide:** paleta, tipografia, espaçamento, ícones, densidade.
+**Fica fixo:** PT-BR, nome do produto **Gypsy**, os termos e o conjunto de estados/campos acima.
+**Fora de escopo / não inventar:** máquina de estados complexa; telas das outras 7 áreas
+(cada uma precisa de descritivo próprio antes); qualquer campo não listado.
+
+**Dados fake sugeridos** (contexto real; um deles fecha o golden test da HOLLOS):
+`#2024-118` · Frigorífico Marfrig · Ampliação Sala de Máquinas · Promissão/SP · Industrial ·
+REV-02 · Enviado · **R$ 216.188,04** · HH total 2.377,84 h. Complementar com outros clientes
+industriais/prediais variando status para ilustrar a tabela.

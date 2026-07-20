@@ -58,13 +58,17 @@ Para cada uma das 8 áreas (`modulos_e_navegacao.md`): Home, Orçamentos, Dimens
 Base de custos, Custos operacionais, Planejamento, Relatórios, Configurações.
 
 ```
-1. superpowers:brainstorming → spec da tela em 06_TELAS/
-2. Mockup HTML em mockups/ (frontend-design + dados fake realistas da HOLLOS via xlsx)
-3. Revisão Conrado → ajuste
-4. Validação Sandro/Guilherme
-5. Congela a spec (mudança depois = decisão registrada)
+1. superpowers:brainstorming → descritivo funcional da tela em 06_TELAS/
+2. Claude Design cria o protótipo interativo a partir do descritivo (fora do repo)
+3. Conrado + Sandro/Guilherme validam o fluxo
+4. Congela: descritivo atualizado p/ bater com o protótipo validado (mudança depois = decisão registrada)
 ```
-**Gate:** navegação completa clicável validada pelos usuários.
+**Gate:** fluxo validado pelos usuários no protótipo.
+
+> **Fluxo padrão, não camisa de força.** O Claude Code **especifica** (descritivo);
+> o **Claude Design** prototipa. Rota rápida sob demanda: se o Conrado pedir, o Claude
+> Code pode gerar um mockup direto — exceção pontual, não o padrão. Detalhe do fluxo
+> Code↔Design em `registro_de_decisoes.md` (2026-07-19, SP-02).
 
 ### Fase 2 — Banco e seed
 ```

@@ -14,7 +14,7 @@ Produto Gypsy → Subprojeto SP-xx → Módulo M-xxx → Feature F-xxx → Taref
 ## Gates e fluxo
 - brainstorming antes da spec (quando necessário);
 - spec antes da execução;
-- mockup antes do frontend definitivo;
+- protótipo validado (Claude Design) antes do frontend definitivo;
 - aprovação humana em cada gate (Conrado; Sandro/Guilherme quando aplicável);
 - não avançar automaticamente para o próximo SP;
 - evidência obrigatória antes de declarar concluído (ver rule 07).
