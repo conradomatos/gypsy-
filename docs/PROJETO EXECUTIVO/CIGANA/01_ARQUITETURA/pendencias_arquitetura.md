@@ -58,14 +58,13 @@ dono, no gate indicado. Registradas aqui como dívida de migração.
 | `04_MODULOS/C3 - MODULO SAIDA (RESULTADOS)/M-006.1_resumo_de_precos.md` e `M-006.3_proposta_pdf_excel.md` | "**Edge Function** existe (generate-budget-pdf)" | Edge Functions (Supabase/Deno) | **SP-07** | Implementação do M-006 (saída) | Aponta função Supabase inexistente no backend Django |
 | `PROJETO EXECUTIVO/CIGANA/02_BANCO DE DADOS/000.md`, specs `BD-1..BD-6` | Nomenclatura de tabelas/colunas em português; a definir em inglês | — (nomenclatura) | **SP-04** | Desenho do schema | Retrabalho de nomes; divergência com `convencoes_nomenclatura.md` |
 
-### Pendência documental separada — branding "CostAI"
+### Branding "CostAI" — RESOLVIDO nos docs vigentes (2026-07-19)
 
-Os documentos de negócio em `PRE PROJETO/GATE_APRESENTACAO/` (ex.:
-`BLOCO_001/discussao_modulos_planilha_hollos.md`, `visao_geral.md`) usam o branding antigo
-**"CostAI"** de forma difusa. **Não alterado nesta sessão.** Fica como pendência
-documental separada: substituir "CostAI" → "Gypsy" nesses docs de pré-projeto quando forem
-revisados. Impacto: baixo (são referência de negócio, não orientam implementação), mas
-mantém branding inconsistente.
+- **Docs vigentes:** `PRE PROJETO/GATE_APRESENTACAO/BLOCO_001/` (`discussao_modulos_planilha_hollos.md`,
+  `visao_geral.md`) migrados de "CostAI" → **"Gypsy"**. ✅
+- **Docs arquivados:** `PRE PROJETO/_ARQUIVO/DOC_1/` **mantém "CostAI" de propósito** — são
+  históricos, e a convenção é que o branding antigo só aparece em arquivado/histórico
+  (ver `convencoes_nomenclatura.md`). Não migrar.
 
 ## 5. Fundação documental — etapas finais do SP-01 (ordem)
 

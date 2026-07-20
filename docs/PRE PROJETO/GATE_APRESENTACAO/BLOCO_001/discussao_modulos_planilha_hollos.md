@@ -5,7 +5,7 @@ area: gypsy
 tags: [gypsy, pre-projeto, apresentacao]
 ---
 
-# CostAI — Mapa de Módulos (Arquitetura)
+# Gypsy — Mapa de Módulos (Arquitetura)
 
 Data: 2026-04-03 Base: Planilha HOLLOS.xlsx (Pequenas Obras) — 37 abas mapeadas Status: Discussão
 
@@ -13,7 +13,7 @@ Data: 2026-04-03 Base: Planilha HOLLOS.xlsx (Pequenas Obras) — 37 abas mapeada
 
 ## Visão Geral
 
-A planilha atual tem 37 abas que misturam dados de referência, calculadoras, configurações, resumos e planejamento. No CostAI, isso se reorganiza em **9 módulos** + **4 bancos de dados** + **3 motores de cálculo** + **outputs**.
+A planilha atual tem 37 abas que misturam dados de referência, calculadoras, configurações, resumos e planejamento. No Gypsy, isso se reorganiza em **9 módulos** + **4 bancos de dados** + **3 motores de cálculo** + **outputs**.
 
 ---
 
@@ -21,7 +21,7 @@ A planilha atual tem 37 abas que misturam dados de referência, calculadoras, co
 
 São as tabelas mestras que alimentam todo o sistema. Vêm do Spec 0 (data engineering).
 
-|ID|Módulo CostAI|Abas que alimentam|Registros estimados|
+|ID|Módulo Gypsy|Abas que alimentam|Registros estimados|
 |---|---|---|---|
 |BD-1|**Banco de Insumos / Materiais**|Base de Materiais (~2.879 linhas), BASE DADOS PAINEIS (~30.557 linhas Siemens)|~33.000 itens|
 |BD-2|**Banco de Mão de Obra / Tabela Salarial**|Tabela de Entrada de Peços (116 linhas, 41 funções), Encargos (58 linhas)|~50 funções × versões|
@@ -32,7 +32,7 @@ São as tabelas mestras que alimentam todo o sistema. Vêm do Spec 0 (data engin
 
 **Merge:** Base de Materiais + BASE DADOS PAINEIS + 5 outras fontes do Spec 0 (FAZZER, SINAPI-PR, RSMeans, Arquimedes, catálogo concorrente)
 
-**Estrutura no CostAI:**
+**Estrutura no Gypsy:**
 
 - Tabela `insumos`: código, descrição, unidade, família, subfamília, Hxh_unitário
 - Tabela `precos_insumos`: insumo_id, fonte (Siemens/Concept/SINAPI/etc), preço, data_base, fornecedor
@@ -44,7 +44,7 @@ São as tabelas mestras que alimentam todo o sistema. Vêm do Spec 0 (data engin
 
 **Merge:** Tabela de Entrada de Preços + Encargos + EPI e Ferramentas (parcial)
 
-**Estrutura no CostAI:**
+**Estrutura no Gypsy:**
 
 - Tabela `funcoes`: código, descrição, categoria (MOD/MOI/Gerência), regime (CLT/PJ)
 - Tabela `salarios`: funcao_id, valor_mensal_220h, dissídio_ano, periculosidade (bool), adicional_%
@@ -55,7 +55,7 @@ São as tabelas mestras que alimentam todo o sistema. Vêm do Spec 0 (data engin
 
 **Merge:** Equipamentos + Cálculo Custo de Equipamentos
 
-**Decisão:** Os dois se fundem. O cálculo de depreciação/combustível (aba Cálculo Custo) gera o valor/dia que aparece na aba Equipamentos. No CostAI = uma tabela com campos de custo (locação OU depreciação calculada).
+**Decisão:** Os dois se fundem. O cálculo de depreciação/combustível (aba Cálculo Custo) gera o valor/dia que aparece na aba Equipamentos. No Gypsy = uma tabela com campos de custo (locação OU depreciação calculada).
 
 ### BD-4: Banco de Itens de Canteiro
 
@@ -98,7 +98,7 @@ Noturno = Custo_HH × 1.2
 
 **O que absorve:** Administração Central IND + Impostos-industrial + bloco "Encargos sobre Faturamento" que aparece em ~8 abas
 
-**Nota:** O bloco "2 - ENCARGOS SOBRE FATURAMENTO DE SERVIÇOS" (ISS 3%, PIS 0,65%, COFINS 3%, ADM 10%, Lucro 15%, IR 4,8%, IR Adicional 3,2%, CSLL 2,88% = **42,53%**) se repete identicamente em: PROJETOS, Manutenção de Canteiro, Equipamentos, Seguros e Outros, Mobilização, Desmobilização, Despesas Viagens, Prog. Segurança. No CostAI isso é UM motor chamado uma vez com parâmetros.
+**Nota:** O bloco "2 - ENCARGOS SOBRE FATURAMENTO DE SERVIÇOS" (ISS 3%, PIS 0,65%, COFINS 3%, ADM 10%, Lucro 15%, IR 4,8%, IR Adicional 3,2%, CSLL 2,88% = **42,53%**) se repete identicamente em: PROJETOS, Manutenção de Canteiro, Equipamentos, Seguros e Outros, Mobilização, Desmobilização, Despesas Viagens, Prog. Segurança. No Gypsy isso é UM motor chamado uma vez com parâmetros.
 
 **Cenários:**
 
@@ -111,7 +111,7 @@ Absorve a aba Formula Reajuste Cabos. Extensível.
 
 ---
 
-## 3. MÓDULOS FUNCIONAIS (telas/features do CostAI)
+## 3. MÓDULOS FUNCIONAIS (telas/features do Gypsy)
 
 | ID  | Módulo                              | Abas que absorve                                                           | Fase Jira |
 | --- | ----------------------------------- | -------------------------------------------------------------------------- | --------- |
@@ -129,7 +129,7 @@ Absorve a aba Formula Reajuste Cabos. Extensível.
 
 **Absorve:** Cabeçalho do LEVANTAMENTO (linhas 3-9) + Flags de cliente (linhas 12-16)
 
-**No CostAI:** Tela de criação do orçamento com:
+**No Gypsy:** Tela de criação do orçamento com:
 
 - Metadados: nº, cliente, obra, local, data, revisão, tipo (Industrial/Predial)
 - **Perfil do cliente** (substituindo flags hardcoded): seleção de perfil (VALE/Klabin/genérico) que ativa/desativa regras automaticamente
@@ -141,19 +141,19 @@ Absorve a aba Formula Reajuste Cabos. Extensível.
 
 Maior módulo. 631 linhas, 9.326 fórmulas. Já mapeado como F1 no Jira.
 
-**No CostAI:** Módulo dedicado que recebe lista de cargas (motor/iluminação com KW, V, distância) e calcula: corrente, bitola de cabo, eletroduto, leito, terminais. Output = lista de materiais que alimenta M-5.
+**No Gypsy:** Módulo dedicado que recebe lista de cargas (motor/iluminação com KW, V, distância) e calcula: corrente, bitola de cabo, eletroduto, leito, terminais. Output = lista de materiais que alimenta M-5.
 
 Itens avulsos do LEVANTAMENTO (fibra óptica, proteção passiva) ficam em M-5 como input manual.
 
 ### M-3: Dimensionador de Instrumentação
 
-**No CostAI:** Análogo ao M-2 mas para instrumentação. Input = quantidade de instrumentos por tipo (TT, PDT, FT, LT, válvulas) × distância média → Output = BOM de instrumentação.
+**No Gypsy:** Análogo ao M-2 mas para instrumentação. Input = quantidade de instrumentos por tipo (TT, PDT, FT, LT, válvulas) × distância média → Output = BOM de instrumentação.
 
 Cada tipo de instrumento = um **assembly** (composição padrão).
 
 ### M-4: Configurador de Painéis
 
-**No CostAI:** Input = tipo de partida (Direta/ET/SS/Inversor) × potência (kW) → Output = BOM do painel (disjuntor, contator, relé, bornes, etc.) com preço.
+**No Gypsy:** Input = tipo de partida (Direta/ET/SS/Inversor) × potência (kW) → Output = BOM do painel (disjuntor, contator, relé, bornes, etc.) com preço.
 
 Usa BD-1 (catálogo Siemens) como fonte de preços dos componentes.
 
@@ -161,7 +161,7 @@ Usa BD-1 (catálogo Siemens) como fonte de preços dos componentes.
 
 **Absorve:** Materiais-industrial (966 linhas, 10.458 fórmulas)
 
-**No CostAI:** View consolidada que agrega:
+**No Gypsy:** View consolidada que agrega:
 
 - Output do M-2 (Dimensionador de Força) → cabos, eletrodutos, leitos
 - Output do M-3 (Dimensionador de Instrumentação) → cabos sinal, tubing, conectores
@@ -174,13 +174,13 @@ Multiplicadores por categoria (cabos, eletrodutos, leitos, ferragens, demais) = 
 
 **Merge:** Mobilização + Desmobilização + bloco mob/desmob do LEVANTAMENTO + bloco Hospedagem do LEVANTAMENTO + bloco Veículos do LEVANTAMENTO
 
-**No CostAI:** Uma única calculadora com toggle Mob/Desmob. Inputs: equipe (função × qtd × dias), hospedagem, alimentação, transporte, veículos. Usa MC-1 para custo HH.
+**No Gypsy:** Uma única calculadora com toggle Mob/Desmob. Inputs: equipe (função × qtd × dias), hospedagem, alimentação, transporte, veículos. Usa MC-1 para custo HH.
 
 ### M-7: Custos Complementares
 
 **Merge:** Seguros e Outros + PROJETOS + Prog. Segurança + Despesas Viagens + Pintura
 
-**No CostAI:** Coleção de itens de custo "avulsos" que não vêm dos dimensionadores. Cada um é uma mini-composição:
+**No Gypsy:** Coleção de itens de custo "avulsos" que não vêm dos dimensionadores. Cada um é uma mini-composição:
 
 - Seguros: % do contrato (Performance Bond, RC) ou valor fixo (ART)
 - Projetos: Hxh engenheiro × custo/hora
@@ -192,7 +192,7 @@ Todos passam pelo MC-2 (BDI) com o mesmo bloco de encargos 42,53%.
 
 ### M-8: Horas Improdutivas
 
-**No CostAI:** Calculador do F_produtividade. Inputs: distância casa-obra, tempo DDS, tempo liberação frentes → Output: % improdutivo que ajusta Hxh em toda a BOM.
+**No Gypsy:** Calculador do F_produtividade. Inputs: distância casa-obra, tempo DDS, tempo liberação frentes → Output: % improdutivo que ajusta Hxh em toda a BOM.
 
 Já mapeado em F2 do Jira.
 
@@ -200,7 +200,7 @@ Já mapeado em F2 do Jira.
 
 **Absorve:** RESUMO PREÇOS Industrial + Custo Obra_Industrial + Custos MOI Mensal + TAB HH
 
-**No CostAI:** View gerada automaticamente. Não é input — é output. Contém:
+**No Gypsy:** View gerada automaticamente. Não é input — é output. Contém:
 
 - EAP hierárquica do orçamento (1. Gerenciamento, 2. Engenharia, 3. Montagem...)
 - Hxh total por seção, Serviços, Materiais
@@ -220,7 +220,7 @@ Já mapeado em F2 do Jira.
 |Cronograma macro|Gantt de execução|Sim, v2 (ou integra com PWC)|
 |Custo Obra_Industrial (parte "Realizado")|Controle de custos durante obra — escopo de ERP/PWC|Não — pertence ao PWC|
 
-**Nota:** O histograma ALIMENTA o cálculo de MOD/MOI (dias × pessoas). No MVP, o CostAI precisa de um **estimador simplificado de equipe** (prazo × composição de equipe → Hxh total) sem o grid semanal completo.
+**Nota:** O histograma ALIMENTA o cálculo de MOD/MOI (dias × pessoas). No MVP, o Gypsy precisa de um **estimador simplificado de equipe** (prazo × composição de equipe → Hxh total) sem o grid semanal completo.
 
 ---
 
@@ -272,9 +272,9 @@ Já mapeado em F2 do Jira.
 
 ---
 
-## 7. MAPA DE ABSORÇÃO (Aba → Módulo CostAI)
+## 7. MAPA DE ABSORÇÃO (Aba → Módulo Gypsy)
 
-| #   | Aba Original                | Tipo         | → Módulo CostAI                        | Ação                                       |
+| #   | Aba Original                | Tipo         | → Módulo Gypsy                        | Ação                                       |
 | --- | --------------------------- | ------------ | -------------------------------------- | ------------------------------------------ |
 | 1   | Formula Reajuste Cabos      | PARAMETRO    | MC-3 Motor Reajuste                    | **ABSORVE** — vira atributo do insumo      |
 | 3   | LEVANTAMENTO                | CONFIG       | M-1 Cadastro + M-6 Mob (parcial)       | **DECOMPÕE** em 2 módulos                  |
@@ -330,17 +330,17 @@ Já mapeado em F2 do Jira.
 
 ## 9. OBSERVAÇÕES PARA DISCUSSÃO
 
-1. **O bloco "Encargos sobre Faturamento" (42,53%)** se repete em 8 abas com valores idênticos. No CostAI é uma chamada ao MC-2 com parâmetros. Economia brutal de complexidade.
+1. **O bloco "Encargos sobre Faturamento" (42,53%)** se repete em 8 abas com valores idênticos. No Gypsy é uma chamada ao MC-2 com parâmetros. Economia brutal de complexidade.
     
 2. **COMPOSIÇÃO Hh é o cálculo mais crítico** — dele derivam todos os preços de MO. Se errar aqui, o orçamento inteiro está errado. Precisa de validação com Sandro como primeira coisa.
     
 3. **O LEVANTAMENTO mistura 5 módulos** numa única tela. A decomposição em M-1/M-6/M-7/M-8 é a mudança mais visível para o usuário.
     
-4. **BASE DADOS PAINEIS (30k linhas Siemens jan/2019)** precisa de atualização de preços. No CostAI, o catálogo Siemens entra como fonte no BD-1 com data_base e mecanismo de atualização.
+4. **BASE DADOS PAINEIS (30k linhas Siemens jan/2019)** precisa de atualização de preços. No Gypsy, o catálogo Siemens entra como fonte no BD-1 com data_base e mecanismo de atualização.
     
-5. **Histograma e Cronograma de Desembolso** ficam fora do MVP mas o CostAI precisa de um **estimador simplificado de equipe** para calcular MOD/MOI sem o grid semanal completo.
+5. **Histograma e Cronograma de Desembolso** ficam fora do MVP mas o Gypsy precisa de um **estimador simplificado de equipe** para calcular MOD/MOI sem o grid semanal completo.
     
-6. **Custo Obra_Industrial (Orçado vs Realizado)** tem a parte "Orçado" que vai pro M-9 e a parte "Realizado" que pertence ao PWC (controle de obra), não ao CostAI (estimativa).
+6. **Custo Obra_Industrial (Orçado vs Realizado)** tem a parte "Orçado" que vai pro M-9 e a parte "Realizado" que pertence ao PWC (controle de obra), não ao Gypsy (estimativa).
 
 
 ![[Pasted image 20260403235436.png]]
