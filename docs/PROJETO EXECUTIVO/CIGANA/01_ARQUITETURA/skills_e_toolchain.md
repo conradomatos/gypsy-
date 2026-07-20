@@ -29,8 +29,8 @@ tags: [gypsy, arquitetura]
 
 | Necessidade | Skill | Origem | Fase |
 |---|---|---|---|
-| Direção visual dos mockups | `frontend-design` | plugin oficial | 1 |
-| Gráficos/dashboards (Monte Carlo, resumo) | `dataviz` | global | 1, 5 |
+| Implementar telas em React (casar o protótipo validado) | `frontend-design` | plugin oficial (ativar) | 3 (React) |
+| Gráficos/dashboards (Monte Carlo, resumo) | `dataviz` | global | 3, 5 |
 | Manipular planilhas (dados fake, seed) | `xlsx` | ai_fabric skills-main | 1, 2 |
 | Commits e PRs | `commit-commands` | plugin oficial | todas |
 | Extração das fontes (destilação) | `extrair-fonte` | `.claude/skills/ (repo)` | paralela |
@@ -54,11 +54,15 @@ tags: [gypsy, arquitetura]
 | `seed-dados` | início Fase 2 | Importa EXTRACAO_*.xlsx → banco, valida schema, relatório de carga |
 | `golden-test` | início Fase 3 | Roda orçamento de referência × HOLLOS (R$ 216.188,04), diff item a item |
 
-## Padrão visual dos mockups (substitui skill própria)
+## Prototipagem: Claude Design (fora do repo)
 
-Documentado uma vez em `mockups/PADRAO.md` quando o primeiro mockup for aprovado:
-header/nav comum, tipografia, paleta, componentes (tabela, formulário, card).
-Todo mockup seguinte referencia o padrão.
+O protótipo interativo das telas é feito no **Claude Design**, a partir do descritivo
+funcional que o Claude Code escreve em `06_TELAS/`. O Claude Code **não** produz o
+protótipo visual por padrão (ver fluxo em `registro_de_decisoes.md`, 2026-07-19 SP-02).
+A direção visual (paleta, tipografia, densidade) é decidida no Design.
+
+`mockups/` deixa de ser "onde o Claude Code escreve HTML"; serve, se útil, para guardar
+**referência** dos protótipos validados (link/screenshot) — rastreabilidade, opcional.
 
 ## Referências de repo maduro
 
