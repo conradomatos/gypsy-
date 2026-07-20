@@ -5,7 +5,7 @@ area: gypsy
 tags: [gypsy, pre-projeto, apresentacao]
 ---
 
-O produto CostAI é composto por 6 blocos funcionais. O Bloco 1 (Dimensionador) é um produto separado que gera listas quantificadas. Os Blocos 2 a 6 compõem o motor de orçamentação. O Dimensionador alimenta o motor de orçamentação, mas ambos funcionam de forma independente.
+O produto Gypsy é composto por 6 blocos funcionais. O Bloco 1 (Dimensionador) é um produto separado que gera listas quantificadas. Os Blocos 2 a 6 compõem o motor de orçamentação. O Dimensionador alimenta o motor de orçamentação, mas ambos funcionam de forma independente.
 
 **Referências de mercado:** CostOS (Nomitech), InEight Estimate (Oracle), ProEst (Autodesk), ConEst IntelliBid (elétrica). Padrões: AACE RP 18R-97, SINAPI, RSMeans, NBR 5410.
 

@@ -25,14 +25,21 @@
   git/segurança/comunicação).
 - **`CLAUDE.md` da raiz escrito** (índice operacional curto).
 
-**Estado:** SP-01 (fundação documental) fechado; aguardando gate final do Conrado.
-Commit na branch, sem push (push para main é manual).
+**Estado:** SP-01 (fundação documental) fechado. PR #1 mergeado na `main` (`9b171e0`).
+
+**Faxina final (mesma sessão):**
+- Branding "CostAI" → "Gypsy" nos docs **vigentes** de `GATE_APRESENTACAO/` (2 arquivos).
+  `_ARQUIVO/DOC_1` mantém "CostAI" de propósito — é histórico.
+- `PRE PROJETO/_ARQUIVO/` criada; `DOC_1` e `DOC_2` movidos via `git mv` (pasta
+  `DOCS_WORD/` removida); INDEX corrigido e pendências resolvidas marcadas.
+- `.claude/settings.json` criado: allowlist de comandos somente-leitura + deny de
+  push para main/force, `.env` e `destilacao/fontes/`.
 
 **Pendências ao sair:**
-- [ ] Conrado: gate final do SP-01 + push/merge da branch.
-- [ ] Dívidas de migração nos SP-04/05/07 (ver `pendencias_arquitetura.md`).
-- [ ] Branding "CostAI" em `PRE PROJETO/GATE_APRESENTACAO/*` (pendência separada).
-- [ ] Desbloquear SP-02 (Telas) só após o gate do SP-01.
+- [ ] Dívidas de migração nos SP-04/05/07 (ver `pendencias_arquitetura.md`) — correção
+      no gate de cada SP; a rule `02-arquitetura-vigente` já impede uso de RLS/Supabase.
+- [ ] `BD-4` inexistente — decidir no SP-04.
+- [ ] Desbloquear SP-02 (Telas): próximo passo é o mockup HTML da T-01.
 
 ---
 
