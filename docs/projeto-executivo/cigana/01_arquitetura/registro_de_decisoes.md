@@ -13,6 +13,35 @@ Cada item é classificado: **DECIDIDO** · **PROPOSTO** · **PENDENTE** · **REV
 
 ---
 
+## 2026-07-20 (SP-01) — Reorganização estrutural + governança AGENTS.md (Conrado + Claude)
+
+### Estrutura de código — layout DECIDIDO (pasta só no scaffold)
+- **DECIDIDO:** monorepo com `apps/engine`, `apps/backend`, `apps/frontend` e `infra/`.
+  Promove a PROPOSTA de layout em `padroes_de_codigo.md` a **DECIDIDO** (só os *nomes/estrutura*).
+- A **pasta física não é criada agora** — nasce no SP do scaffold. Materializar `apps/*` vazio
+  hoje congelaria layout sem necessidade (pasta vazia não tem histórico a preservar).
+- **Continuam PROPOSTO** (não promovidos): toolchain concreta (Ruff/Pyright/pytest/Vitest…) e
+  o caminho exato das tabelas normativas NBR dentro do engine.
+
+### Higiene de nomes — DECIDIDO e aplicado (PR de rename)
+- Pastas de `docs/` renomeadas para minúsculo-com-hífen, sem espaços/parênteses, via `git mv`
+  (histórico preservado). Códigos identificadores (`M-###`, `BD-#`, `C1/C2/C3`, `MC-###`)
+  preservados; codinome `CIGANA → cigana`. Arquivos `.md` internos não renomeados nesta etapa.
+
+### Governança — migração para AGENTS.md — DECIDIDO
+- **`AGENTS.md` é a fonte canônica portável** de instruções de trabalho, nos níveis que existem:
+  **raiz** e **`destilacao/`**. Formato PRD + limites em três camadas (SEMPRE / PERGUNTAR ANTES / NUNCA).
+- **`CLAUDE.md` vira ponteiro** que importa o `AGENTS.md` via `@AGENTS.md` (Claude Code **não**
+  auto-carrega AGENTS.md; carrega CLAUDE.md + `.claude/rules/`. Import nativo confirmado nos docs
+  oficiais). `.claude/rules/` **permanecem** auto-carregadas; AGENTS.md as indexa, não duplica.
+- Não se cria AGENTS.md/CLAUDE.md em `apps/*` enquanto as pastas não existirem.
+
+### Sementes de futuro — PROPOSTO (design, não implementação)
+- Revisor adversarial de PR + CI como portão de merge desenhados em `revisao_e_ci.md`
+  (**PROPOSTO**). Não implementam nada; ativam quando houver código.
+
+---
+
 ## 2026-07-19 (SP-02) — Fluxo de telas: Claude Code especifica, Claude Design prototipa
 
 Fluxo **padrão** (DECIDIDO) para produzir telas:

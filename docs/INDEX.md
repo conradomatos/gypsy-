@@ -20,6 +20,11 @@ revisado: 2026-07-19
 > `projeto-executivo/cigana/01_arquitetura/registro_de_decisoes.md` e a pasta
 > `01_arquitetura/_historico/`.
 
+> **Governança (2026-07-20):** instruções de trabalho para agentes de IA são canônicas em
+> **`AGENTS.md`** (raiz + `destilacao/`); `CLAUDE.md` importa via `@AGENTS.md`; regras
+> granulares em `.claude/rules/`. Estrutura de código DECIDIDA: monorepo `apps/{engine,
+> backend,frontend}` + `infra/` (pasta só no scaffold).
+
 ---
 
 ## Estrutura de pastas
@@ -45,6 +50,8 @@ revisado: 2026-07-19
 | Módulos e navegação | `cigana/01_arquitetura/modulos_e_navegacao.md` | `_arquivo/doc-1/5_roadmap` |
 | Pipeline de execução | `cigana/01_arquitetura/pipeline_de_execucao.md` | `_arquivo/doc-1/5_roadmap` |
 | Subprojetos | `cigana/00_SUBPROJETOS.md` | — |
+| Governança / instruções de agentes | `AGENTS.md` (raiz) + `destilacao/AGENTS.md` | — |
+| Revisão adversarial + CI (PROPOSTO) | `cigana/01_arquitetura/revisao_e_ci.md` | — |
 | Mapa de abas → módulos | `pre-projeto/gate-apresentacao/bloco-001/discussao_modulos_planilha_hollos.md` | — |
 | BDI / Formação de preço | `cigana/05_motores-de-calculo/MC-002_bdi_markup.md` | `_arquivo/doc-1/3_catalogo` |
 | **Schema do banco** | **PENDENTE — ver nota abaixo** | qualquer schema antigo (doc-2, BD-1..BD-6 são preliminares, não aprovados) |

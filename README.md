@@ -14,8 +14,17 @@ Local-first: roda local até validação; infraestrutura de produção ainda **p
 Detalhe em `docs/projeto-executivo/cigana/01_arquitetura/stack_tecnica.md`; índice
 autoritativo por assunto em `docs/INDEX.md`.
 
-**Estado atual: planejamento.** Nenhum código escrito. A documentação está sendo
-migrada do vault Obsidian (gypsy-vault) para `docs/`.
+Estrutura de código **decidida** (pasta nasce no scaffold): monorepo `apps/engine`,
+`apps/backend`, `apps/frontend`, `infra/`.
+
+**Estado atual: planejamento.** Nenhum código escrito ainda.
+
+## Governança
+
+Instruções de trabalho para agentes de IA vivem em **`AGENTS.md`** (fonte canônica
+portável, raiz + `destilacao/`). O `CLAUDE.md` importa o `AGENTS.md` via `@AGENTS.md`.
+Regras granulares enforçadas em `.claude/rules/`. Precedência e docs canônicos por
+assunto: `docs/INDEX.md` e `.../01_arquitetura/registro_de_decisoes.md`.
 
 ## Estrutura
 
@@ -35,9 +44,11 @@ docs/
 mockups/                         HTML clicável com dados fake (valida UX antes do código)
 referencias/                     Material de apoio (entrevistas, benchmarks)
 destilacao/                      SP-00 — data engineering (Spec 0): extrai e normaliza
-                                 as planilhas-fonte; alimenta o seed. CLAUDE.md próprio.
+                                 as planilhas-fonte; alimenta o seed. AGENTS.md próprio.
                                  (fontes .xlsx ficam fora do git)
-.claude/rules/                   Regras do projeto (rascunho — versão final: Conrado)
+AGENTS.md                        Instruções canônicas de trabalho (portável)
+CLAUDE.md                        Ponteiro: importa @AGENTS.md
+.claude/rules/                   Regras granulares do projeto (auto-carregadas, 8 arquivos)
 .claude/skills/extrair-fonte/    Skill de extração por fonte (destilação)
 ```
 
