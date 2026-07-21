@@ -17,8 +17,8 @@ revisado: 2026-07-19
 > **Arquitetura vigente:** frontend React + TypeScript + Vite + Tailwind + shadcn/ui;
 > backend Django + DRF + PostgreSQL; engine Python puro isolado; integração REST.
 > A stack anterior (React + Supabase) foi **revogada em 2026-07-19** — ver
-> `PROJETO EXECUTIVO/CIGANA/01_ARQUITETURA/registro_de_decisoes.md` e a pasta
-> `01_ARQUITETURA/_HISTORICO/`.
+> `projeto-executivo/cigana/01_arquitetura/registro_de_decisoes.md` e a pasta
+> `01_arquitetura/_historico/`.
 
 ---
 
@@ -26,28 +26,28 @@ revisado: 2026-07-19
 
 | Pasta | Status | Conteúdo |
 |-------|--------|----------|
-| `PROJETO EXECUTIVO/CIGANA/` | **VIGENTE** — source of truth | Arquitetura, padrões, módulos, motores, parâmetros, telas, pipeline |
-| `PROJETO EXECUTIVO/CIGANA/01_ARQUITETURA/_HISTORICO/` | **HISTÓRICO** — não orienta implementação | Versões revogadas (React/Supabase) preservadas para auditoria |
-| `PRE PROJETO/GATE_APRESENTACAO/` | **VIGENTE** — referência de negócio | Mapa de 37 abas HOLLOS → componentes Gypsy, problema, objetivo, personas |
-| `PRE PROJETO/GATE DESTILACAO/` | **VIGENTE** — data engineering | Spec 0, fontes de dados, referências de mercado |
-| `PRE PROJETO/MONTE CARLO/` | **REFERÊNCIA** — conceitual | Estimativa paramétrica, casos, fases |
-| `PRE PROJETO/_ARQUIVO/` (DOC_1, DOC_2) | **ARQUIVADO** — não usar como spec | Charter, market research, schema antigo. Contraditórios com o Projeto Executivo; úteis só como histórico de visão. Mantêm o branding antigo "CostAI" por serem históricos |
+| `projeto-executivo/cigana/` | **VIGENTE** — source of truth | Arquitetura, padrões, módulos, motores, parâmetros, telas, pipeline |
+| `projeto-executivo/cigana/01_arquitetura/_historico/` | **HISTÓRICO** — não orienta implementação | Versões revogadas (React/Supabase) preservadas para auditoria |
+| `pre-projeto/gate-apresentacao/` | **VIGENTE** — referência de negócio | Mapa de 37 abas HOLLOS → componentes Gypsy, problema, objetivo, personas |
+| `pre-projeto/gate-destilacao/` | **VIGENTE** — data engineering | Spec 0, fontes de dados, referências de mercado |
+| `pre-projeto/monte-carlo/` | **REFERÊNCIA** — conceitual | Estimativa paramétrica, casos, fases |
+| `pre-projeto/_arquivo/` (doc-1, doc-2) | **ARQUIVADO** — não usar como spec | Charter, market research, schema antigo. Contraditórios com o Projeto Executivo; úteis só como histórico de visão. Mantêm o branding antigo "CostAI" por serem históricos |
 
 ## Documento autoritativo por assunto
 
 | Assunto | Documento vigente | NÃO usar como fonte |
 |---------|-------------------|---------------------|
-| Stack técnica | `CIGANA/01_ARQUITETURA/stack_tecnica.md` | `_HISTORICO/stack_tecnica.react-supabase.2026-04-04.md`; `_ARQUIVO/DOC_1/4_arquitetura_tecnica.md` |
-| Toolchain | `CIGANA/01_ARQUITETURA/toolchain.md` | `_HISTORICO/toolchain.supabase.2026-04-04.md` |
-| Deploy | `CIGANA/01_ARQUITETURA/deploy_pipeline.md` | `_HISTORICO/deploy_pipeline.supabase.2026-04-04.md` |
-| Padrões de código | `CIGANA/01_ARQUITETURA/padroes_de_codigo.md` | `_HISTORICO/padroes_de_codigo.supabase.2026-04-04.md` |
-| Nomenclatura | `CIGANA/01_ARQUITETURA/convencoes_nomenclatura.md` | — |
-| Módulos e navegação | `CIGANA/01_ARQUITETURA/modulos_e_navegacao.md` | `_ARQUIVO/DOC_1/5_roadmap` |
-| Pipeline de execução | `CIGANA/01_ARQUITETURA/pipeline_de_execucao.md` | `_ARQUIVO/DOC_1/5_roadmap` |
-| Subprojetos | `CIGANA/00_SUBPROJETOS.md` | — |
-| Mapa de abas → módulos | `PRE PROJETO/GATE_APRESENTACAO/BLOCO_001/discussao_modulos_planilha_hollos.md` | — |
-| BDI / Formação de preço | `CIGANA/05_MOTORES DE CALCULO/MC-002_bdi_markup.md` | `_ARQUIVO/DOC_1/3_catalogo` |
-| **Schema do banco** | **PENDENTE — ver nota abaixo** | qualquer schema antigo (DOC_2, BD-1..BD-6 são preliminares, não aprovados) |
+| Stack técnica | `cigana/01_arquitetura/stack_tecnica.md` | `_historico/stack_tecnica.react-supabase.2026-04-04.md`; `_arquivo/doc-1/4_arquitetura_tecnica.md` |
+| Toolchain | `cigana/01_arquitetura/toolchain.md` | `_historico/toolchain.supabase.2026-04-04.md` |
+| Deploy | `cigana/01_arquitetura/deploy_pipeline.md` | `_historico/deploy_pipeline.supabase.2026-04-04.md` |
+| Padrões de código | `cigana/01_arquitetura/padroes_de_codigo.md` | `_historico/padroes_de_codigo.supabase.2026-04-04.md` |
+| Nomenclatura | `cigana/01_arquitetura/convencoes_nomenclatura.md` | — |
+| Módulos e navegação | `cigana/01_arquitetura/modulos_e_navegacao.md` | `_arquivo/doc-1/5_roadmap` |
+| Pipeline de execução | `cigana/01_arquitetura/pipeline_de_execucao.md` | `_arquivo/doc-1/5_roadmap` |
+| Subprojetos | `cigana/00_SUBPROJETOS.md` | — |
+| Mapa de abas → módulos | `pre-projeto/gate-apresentacao/bloco-001/discussao_modulos_planilha_hollos.md` | — |
+| BDI / Formação de preço | `cigana/05_motores-de-calculo/MC-002_bdi_markup.md` | `_arquivo/doc-1/3_catalogo` |
+| **Schema do banco** | **PENDENTE — ver nota abaixo** | qualquer schema antigo (doc-2, BD-1..BD-6 são preliminares, não aprovados) |
 
 > **Modelo de dados ainda não aprovado. Será definido no subprojeto responsável pelo
 > banco de dados, após validação das telas e regras de negócio.**
@@ -57,19 +57,19 @@ revisado: 2026-07-19
 - **Inglês 100%** para código (Python e TypeScript), banco de dados e API.
 - **Português** para interface e documentação em `docs/`.
 - **Nome do produto:** Gypsy (não "CostAI" — branding antigo, só em docs arquivados/histórico).
-- Detalhe em `CIGANA/01_ARQUITETURA/convencoes_nomenclatura.md`.
+- Detalhe em `cigana/01_arquitetura/convencoes_nomenclatura.md`.
 
 ## Pendências documentais
 
-- [x] ~~Mover `DOC_1` e `DOC_2` para `_ARQUIVO/`~~ ✅ movidos (2026-07-19)
+- [x] ~~Mover `doc-1` e `doc-2` para `_arquivo/`~~ ✅ movidos (2026-07-19)
 - [x] ~~`.claude/rules/` finalizadas~~ ✅ 8 rules gravadas (2026-07-19)
 - [x] ~~`CLAUDE.md` da raiz~~ ✅ escrito (2026-07-19)
-- [ ] Converter as specs `02_BANCO DE DADOS/BD-1..BD-6` para nomenclatura inglesa quando o
+- [ ] Converter as specs `02_banco-de-dados/BD-1..BD-6` para nomenclatura inglesa quando o
       schema for desenhado no SP-04 (ou deletar). **BD-4 não existe** (a sequência tem
       BD-1, 2, 3, 5, 6) — decidir no SP-04 se o número será usado ou a lacuna documentada.
 - [ ] **Dívidas de migração** (RLS, auth Supabase, Edge Functions) nos docs de `02_BANCO` e
-      `04_MODULOS` — correção pertence aos SP-04/05/07 no gate de cada um. Lista completa em
-      `CIGANA/01_ARQUITETURA/pendencias_arquitetura.md` › "Pendências de migração por subprojeto".
+      `04_modulos` — correção pertence aos SP-04/05/07 no gate de cada um. Lista completa em
+      `cigana/01_arquitetura/pendencias_arquitetura.md` › "Pendências de migração por subprojeto".
 
 > **Wikilinks Obsidian** (`[[MOC_...]]`) apontavam para o vault externo (gypsy-vault) e
 > não resolvem neste repo — removidos desta versão do índice.

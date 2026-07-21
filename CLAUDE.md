@@ -15,10 +15,10 @@ migrations. Não há comandos de build/lint/test até o scaffold; não invente n
 ## Fonte de verdade (leia antes de agir)
 
 1. **`docs/INDEX.md`** — qual documento é canônico por assunto.
-2. **`docs/PROJETO EXECUTIVO/CIGANA/01_ARQUITETURA/registro_de_decisoes.md`** —
+2. **`docs/projeto-executivo/cigana/01_arquitetura/registro_de_decisoes.md`** —
    decisões; prevalece sobre doc antigo.
 3. **`docs/LOG.md`** — diário operacional (o que foi feito, pendências).
-4. Docs em `_HISTORICO/` ou marcados REVOGADO/HISTÓRICO **não** orientam implementação.
+4. Docs em `_historico/` ou marcados REVOGADO/HISTÓRICO **não** orientam implementação.
 
 Divergiu de um doc sem decisão registrada? Pare e alinhe com o Conrado.
 
@@ -29,7 +29,7 @@ governança, subprojetos/gates, arquitetura vigente, engine/cálculos/testes,
 dados/parâmetros, backend/frontend, nomenclatura, git/segurança/comunicação.
 Não duplicá-las aqui — segui-las.
 
-## Arquitetura vigente (detalhe em `01_ARQUITETURA/stack_tecnica.md`)
+## Arquitetura vigente (detalhe em `01_arquitetura/stack_tecnica.md`)
 
 - Frontend: React + TypeScript + Vite + Tailwind + shadcn/ui.
 - Backend: Django + DRF + PostgreSQL (Python via uv).

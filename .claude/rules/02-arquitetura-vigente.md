@@ -14,5 +14,5 @@ REVOGADO (não usar nem recomendar como vigente):
   ou biblioteca proposta como decisão sem aprovação do Conrado.
 - Infraestrutura de produção é PENDENTE.
 
-Detalhe em `01_ARQUITETURA/stack_tecnica.md` (produto), `toolchain.md`
+Detalhe em `01_arquitetura/stack_tecnica.md` (produto), `toolchain.md`
 (ferramentas) e `deploy_pipeline.md`. Não duplicar aqui.

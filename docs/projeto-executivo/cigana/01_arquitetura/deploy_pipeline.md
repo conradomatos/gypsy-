@@ -11,7 +11,7 @@ revisado: 2026-07-19
 > **Escopo:** o **fluxo lógico** do código até produção, **independente de provedor**.
 > Nenhuma infraestrutura de produção foi escolhida — ver "Infraestrutura" abaixo.
 > Classificação: **DECIDIDO** · **PENDENTE**. Versão anterior (Vite + Supabase + Coolify)
-> em [`_HISTORICO/`](_HISTORICO/deploy_pipeline.supabase.2026-04-04.md).
+> em [`_historico/`](_historico/deploy_pipeline.supabase.2026-04-04.md).
 
 ## Princípios
 
@@ -68,5 +68,5 @@ Rollback, backup e observabilidade são **pendências futuras**, atreladas a ess
 
 Não usar como vigente: **Coolify**, **Supabase**, **Edge Functions**, `app.costai.com.br`,
 e variáveis `VITE_*` como configuração de **backend**. Referências antigas preservadas
-apenas em [`_HISTORICO/`](_HISTORICO/deploy_pipeline.supabase.2026-04-04.md) e no
+apenas em [`_historico/`](_historico/deploy_pipeline.supabase.2026-04-04.md) e no
 `registro_de_decisoes.md`.

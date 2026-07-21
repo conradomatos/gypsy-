@@ -57,7 +57,7 @@ tags: [gypsy, arquitetura]
 ## Prototipagem: Claude Design (fora do repo)
 
 O protótipo interativo das telas é feito no **Claude Design**, a partir do descritivo
-funcional que o Claude Code escreve em `06_TELAS/`. O Claude Code **não** produz o
+funcional que o Claude Code escreve em `06_telas/`. O Claude Code **não** produz o
 protótipo visual por padrão (ver fluxo em `registro_de_decisoes.md`, 2026-07-19 SP-02).
 A direção visual (paleta, tipografia, densidade) é decidida no Design.
 

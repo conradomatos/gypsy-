@@ -69,5 +69,5 @@ antigo — só em docs arquivados/histórico). Regra do projeto: `nomenclatura` 
 - Idioma: português (PT-BR)
 
 > **Referências históricas:** menções à nomenclatura da era Supabase (RLS, `auth.users`)
-> podem permanecer em `_HISTORICO/` e no `registro_de_decisoes.md` quando necessárias para
+> podem permanecer em `_historico/` e no `registro_de_decisoes.md` quando necessárias para
 > explicar a migração — nunca como orientação vigente.

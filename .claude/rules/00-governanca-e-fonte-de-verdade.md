@@ -4,7 +4,7 @@
   assumir qualquer documento como vigente.
 - `registro_de_decisoes.md` prevalece sobre documentação antiga: uma decisão
   registrada mais recente vence um doc canônico ainda não atualizado.
-- Documentos em `_HISTORICO/` ou marcados REVOGADO/HISTÓRICO **não orientam
+- Documentos em `_historico/` ou marcados REVOGADO/HISTÓRICO **não orientam
   implementação** — existem só para auditoria.
 - **Não inventar** regra de negócio, arquitetura, nome de tabela/campo, fórmula
   ou fluxo.
