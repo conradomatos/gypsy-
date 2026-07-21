@@ -58,7 +58,7 @@ Para cada uma das 8 áreas (`modulos_e_navegacao.md`): Home, Orçamentos, Dimens
 Base de custos, Custos operacionais, Planejamento, Relatórios, Configurações.
 
 ```
-1. superpowers:brainstorming → descritivo funcional da tela em 06_TELAS/
+1. superpowers:brainstorming → descritivo funcional da tela em 06_telas/
 2. Claude Design cria o protótipo interativo a partir do descritivo (fora do repo)
 3. Conrado + Sandro/Guilherme validam o fluxo
 4. Congela: descritivo atualizado p/ bater com o protótipo validado (mudança depois = decisão registrada)

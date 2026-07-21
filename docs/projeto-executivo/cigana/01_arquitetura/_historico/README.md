@@ -5,7 +5,7 @@ area: gypsy
 tags: [gypsy, arquitetura, historico]
 ---
 
-# _HISTORICO — Arquivo de documentos revogados
+# _historico — Arquivo de documentos revogados
 
 ## Finalidade
 
@@ -16,7 +16,7 @@ passado e por que foi mudado.
 ## Regras
 
 - **Documentos históricos NÃO orientam implementação.** São registro, não guia.
-- O **documento vigente permanece no caminho canônico** (`01_ARQUITETURA/<nome>.md`),
+- O **documento vigente permanece no caminho canônico** (`01_arquitetura/<nome>.md`),
   com o mesmo nome de sempre, para não quebrar referências.
 - **Decisões vigentes prevalecem sobre o histórico.** Em qualquer conflito, vale o
   documento canônico e o `registro_de_decisoes.md`.

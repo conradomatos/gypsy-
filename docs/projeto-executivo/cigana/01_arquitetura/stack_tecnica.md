@@ -13,7 +13,7 @@ revisado: 2026-07-19
 > [`toolchain.md`](toolchain.md) — não duplicar aqui.
 >
 > Classificação usada: **DECIDIDO** · **PROPOSTO** · **PENDENTE** · **REVOGADO**.
-> Versão anterior (React + Supabase) em [`_HISTORICO/`](_HISTORICO/stack_tecnica.react-supabase.2026-04-04.md).
+> Versão anterior (React + Supabase) em [`_historico/`](_historico/stack_tecnica.react-supabase.2026-04-04.md).
 
 ## Objetivo da arquitetura
 
@@ -101,7 +101,7 @@ autorização** da aplicação (era a abordagem Supabase, revogada).
 
 Não usar, não recomendar em documentação vigente: **Supabase**, **Edge Functions**,
 **Deno**, **cliente Supabase**, **backend no Supabase**, **RLS como autorização principal**,
-**Coolify**. Histórico preservado em [`_HISTORICO/`](_HISTORICO/).
+**Coolify**. Histórico preservado em [`_historico/`](_historico/).
 
 ## Tecnologias propostas (PROPOSTO — não decididas)
 

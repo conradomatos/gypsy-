@@ -75,7 +75,7 @@ Centro de comando. O que o Sandro vê ao abrir um orçamento.
 > Texto para colar no Claude Design e gerar o protótipo interativo. Descreve **o que a
 > tela faz e contém** — a **direção visual é decisão do Claude Design**. Deriva das seções
 > acima (aprovadas); em conflito, as seções acima mandam. Fluxo em
-> `../01_ARQUITETURA/registro_de_decisoes.md` (2026-07-19, SP-02).
+> `../01_arquitetura/registro_de_decisoes.md` (2026-07-19, SP-02).
 
 **Produto.** Gypsy — motor de orçamentação da Concept (montagem elétrica industrial).
 UI em **PT-BR**. Usuário: orçamentista. Orçamentos é a **área-mãe**: todo o resto vive

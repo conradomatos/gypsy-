@@ -7,4 +7,4 @@
 - Em dúvida sobre nome de campo/tabela, pergunte ao Conrado — não invente.
 
 Detalhe (naming por camada) em
-`docs/PROJETO EXECUTIVO/CIGANA/01_ARQUITETURA/convencoes_nomenclatura.md`.
+`docs/projeto-executivo/cigana/01_arquitetura/convencoes_nomenclatura.md`.

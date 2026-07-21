@@ -17,16 +17,16 @@ tags: [gypsy, subprojetos]
 | SP | Nome | Pasta (docs ou raiz) | Entregável | Gate |
 |----|------|---------------------|------------|------|
 | SP-00 | **Destilação** | `destilacao/` (raiz do repo) | Tabelas consolidadas (Insumos, MO, Equipamentos, Composições, Encargos) → seed | MASTER validado Conrado/Sandro |
-| SP-01 | **Arquitetura** | `01_ARQUITETURA/` | Decisões, pipeline, regras, CLAUDE.md | revisão Conrado (contínuo) |
-| SP-02 | **Telas** | `06_TELAS/` + `mockups/` | Spec + mockup HTML das 8 áreas de navegação | navegação validada Sandro/Guilherme |
-| SP-03 | **Parâmetros** | `03_PARAMETROS/` (B1 projeto, B2 globais) | Camada de parâmetros: globais + override por orçamento | spec fechada + modelos |
-| SP-04 | **Banco de Dados** | `02_BANCO DE DADOS/` (BD-1..BD-6) | Modelos Django + migrations + Admin + seed | banco populado, navegável |
-| SP-05 | **C1 — Módulos Funcionais** | `04_MODULOS/C1/` | M-000 Cadastro · M-001 Dimensionador · M-002 Estimativa · M-003 Base de custos | testes verdes por módulo |
-| SP-06 | **C2 — Módulos Transversais** | `04_MODULOS/C2/` | M-004 Custos operacionais · M-005 Estimador de equipe | testes verdes por módulo |
-| SP-07 | **C3 — Módulo Saída** | `04_MODULOS/C3/` | M-006 Resumo · Monte Carlo · Proposta · Dashboards · IA · Auditoria | golden test completo (R$ 216.188,04) |
-| SP-08 | **MC-001 Composição HH** | `05_MOTORES DE CALCULO/MC-001/` | Engine custo/hora por função (encargos, alimentação, adicionais) | teste × HOLLOS |
-| SP-09 | **MC-002 BDI/Markup** | `05_MOTORES DE CALCULO/` | Engine formação de preço de venda | teste × HOLLOS |
-| SP-10 | **MC-003 Reajuste Commodities** | `05_MOTORES DE CALCULO/` | Engine reajuste cabos (LME cobre × câmbio) | pós-MVP |
+| SP-01 | **Arquitetura** | `01_arquitetura/` | Decisões, pipeline, regras, CLAUDE.md | revisão Conrado (contínuo) |
+| SP-02 | **Telas** | `06_telas/` + `mockups/` | Spec + mockup HTML das 8 áreas de navegação | navegação validada Sandro/Guilherme |
+| SP-03 | **Parâmetros** | `03_parametros/` (B1 projeto, B2 globais) | Camada de parâmetros: globais + override por orçamento | spec fechada + modelos |
+| SP-04 | **Banco de Dados** | `02_banco-de-dados/` (BD-1..BD-6) | Modelos Django + migrations + Admin + seed | banco populado, navegável |
+| SP-05 | **C1 — Módulos Funcionais** | `04_modulos/C1/` | M-000 Cadastro · M-001 Dimensionador · M-002 Estimativa · M-003 Base de custos | testes verdes por módulo |
+| SP-06 | **C2 — Módulos Transversais** | `04_modulos/C2/` | M-004 Custos operacionais · M-005 Estimador de equipe | testes verdes por módulo |
+| SP-07 | **C3 — Módulo Saída** | `04_modulos/C3/` | M-006 Resumo · Monte Carlo · Proposta · Dashboards · IA · Auditoria | golden test completo (R$ 216.188,04) |
+| SP-08 | **MC-001 Composição HH** | `05_motores-de-calculo/MC-001/` | Engine custo/hora por função (encargos, alimentação, adicionais) | teste × HOLLOS |
+| SP-09 | **MC-002 BDI/Markup** | `05_motores-de-calculo/` | Engine formação de preço de venda | teste × HOLLOS |
+| SP-10 | **MC-003 Reajuste Commodities** | `05_motores-de-calculo/` | Engine reajuste cabos (LME cobre × câmbio) | pós-MVP |
 
 ## Ordem de execução
 

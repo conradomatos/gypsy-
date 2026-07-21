@@ -14,7 +14,7 @@ revisado: 2026-07-19
 > Stack em [`stack_tecnica.md`](stack_tecnica.md) · nomenclatura em
 > [`convencoes_nomenclatura.md`](convencoes_nomenclatura.md).
 > Versão anterior (engines TS + Supabase + RLS) em
-> [`_HISTORICO/`](_HISTORICO/padroes_de_codigo.supabase.2026-04-04.md).
+> [`_historico/`](_historico/padroes_de_codigo.supabase.2026-04-04.md).
 
 ## Regra mãe: separação de responsabilidades
 

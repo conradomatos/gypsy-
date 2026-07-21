@@ -16,7 +16,7 @@ Cada item é classificado: **DECIDIDO** · **PROPOSTO** · **PENDENTE** · **REV
 ## 2026-07-19 (SP-02) — Fluxo de telas: Claude Code especifica, Claude Design prototipa
 
 Fluxo **padrão** (DECIDIDO) para produzir telas:
-1. **Claude Code → especifica** o funcionamento: descritivo funcional em `06_TELAS/`.
+1. **Claude Code → especifica** o funcionamento: descritivo funcional em `06_telas/`.
 2. **Claude Design → protótipo** interativo (fora do repo), a partir do descritivo.
 3. **Conrado + Sandro/Guilherme → validam** o fluxo.
 4. **Claude Code → implementa em React**.
@@ -25,7 +25,7 @@ Fluxo **padrão** (DECIDIDO) para produzir telas:
   por padrão. Direção visual (paleta, tipografia, densidade) é decidida no Claude Design.
 - **Rota rápida (LEVE):** se o Conrado quiser gerar algo rápido sem o Design, pode pedir
   um mockup direto ao Claude Code. É exceção sob demanda, não o padrão. Não é camisa de força.
-- **Fonte de verdade:** comportamento/regra = descritivo em `06_TELAS/` (canônico);
+- **Fonte de verdade:** comportamento/regra = descritivo em `06_telas/` (canônico);
   visual = protótipo validado (referência); implementação = React. Conflito de
   *comportamento* → o descritivo vence; de *aparência* → o protótipo vence.
 - **`frontend-design`** é ferramenta da **implementação React** (etapa 4), não da prototipagem.
@@ -57,7 +57,7 @@ API Django/DRF:
 ### Revogado (REVOGADO)
 Supabase, Edge Functions, Deno, cliente Supabase, backend implementado no Supabase e
 **RLS como mecanismo principal de autorização**. Autorização vigente = auth do Django +
-permissions do DRF. Docs da era antiga arquivados em `01_ARQUITETURA/_HISTORICO/` com
+permissions do DRF. Docs da era antiga arquivados em `01_arquitetura/_historico/` com
 banner `REVOGADO` — conteúdo preservado, não orienta implementação.
 
 ### Deploy — Coolify abandonado; infraestrutura PENDENTE
@@ -107,7 +107,7 @@ Mockups HTML clicáveis das 8 áreas, com dados fake, validados com Sandro/Guilh
 ANTES de modelos e engines. Motivo: validar o produto visualmente é mais barato que
 descobrir erro de conceito com o engine pronto. O rigor do engine (puro + testado +
 golden test R$ 216.188,04) permanece — muda só a ordem.
-Specs de tela em `06_TELAS/`, mockups em `mockups/` (raiz do repo).
+Specs de tela em `06_telas/`, mockups em `mockups/` (raiz do repo).
 
 ### Casa do projeto: repo gypsy- + diretório 02_GYPSY
 - Repo: github.com/conradomatos/gypsy- (main)

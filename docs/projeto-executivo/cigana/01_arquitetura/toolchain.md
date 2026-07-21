@@ -14,7 +14,7 @@ revisado: 2026-07-19
 >
 > Classificação: **DECIDIDO** · **PROPOSTO** · **PENDENTE**.
 > Versão anterior (Supabase CLI/Vitest/dbdiagram/Coolify) em
-> [`_HISTORICO/`](_HISTORICO/toolchain.supabase.2026-04-04.md).
+> [`_historico/`](_historico/toolchain.supabase.2026-04-04.md).
 
 > **Importante:** este documento **não registra comandos** (build, lint, test, migration,
 > scripts de frontend, Docker). Comandos concretos entram no `CLAUDE.md` da raiz e/ou nos

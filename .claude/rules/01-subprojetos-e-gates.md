@@ -19,5 +19,5 @@ Produto Gypsy → Subprojeto SP-xx → Módulo M-xxx → Feature F-xxx → Taref
 - não avançar automaticamente para o próximo SP;
 - evidência obrigatória antes de declarar concluído (ver rule 07).
 
-Mapa dos subprojetos: `docs/PROJETO EXECUTIVO/CIGANA/00_SUBPROJETOS.md`.
-Fluxo detalhado: `.../01_ARQUITETURA/pipeline_de_execucao.md`.
+Mapa dos subprojetos: `docs/projeto-executivo/cigana/00_SUBPROJETOS.md`.
+Fluxo detalhado: `.../01_arquitetura/pipeline_de_execucao.md`.
