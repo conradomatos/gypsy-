@@ -16,6 +16,16 @@ local_settings.py
 .env.*
 !.env.example
 
+# Node / frontend (Vite) — para quando o apps/frontend nascer
+node_modules/
+dist/
+.vite/
+*.local
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+# uv.lock NÃO é ignorado (lockfile versiona)
+
 # IDE / SO
 .vscode/
 .idea/

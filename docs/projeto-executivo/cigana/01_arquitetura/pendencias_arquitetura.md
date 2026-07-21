@@ -66,15 +66,15 @@ dono, no gate indicado. Registradas aqui como dívida de migração.
   históricos, e a convenção é que o branding antigo só aparece em arquivado/histórico
   (ver `convencoes_nomenclatura.md`). Não migrar.
 
-## 5. Fundação documental — etapas finais do SP-01 (ordem)
+## 5. Fundação documental — etapas finais do SP-01 (ordem) — CONCLUÍDO
 
-1. **`.claude/rules/`** — hoje RASCUNHO; versão final aprovada pelo Conrado. **Etapa
-   anterior ao CLAUDE.md.**
-2. **`CLAUDE.md` da raiz** — **última etapa do SP-01**. Índice operacional curto e
-   autoritativo, referenciando os docs vigentes; **sem** inventar comandos de build/lint/
-   test/migration e **sem** duplicar `.claude/rules/`. Só depois de (1) aprovado.
+1. **`.claude/rules/`** — 8 rules numeradas gravadas. ✅
+2. **Governança em `AGENTS.md`** (2026-07-20) — fonte canônica portável na raiz e em
+   `destilacao/`; `CLAUDE.md` virou ponteiro que importa via `@AGENTS.md`. `.claude/rules/`
+   permanecem auto-carregadas e indexadas pelo AGENTS.md. Sem comandos de build/lint/test
+   inventados (não há scaffold); sem duplicar as rules. ✅
 
-Checklist do futuro `CLAUDE.md` (referenciar **documentos vigentes**):
+Checklist do `AGENTS.md`/`CLAUDE.md` (referenciar **documentos vigentes**):
 - Stack → [`stack_tecnica.md`](stack_tecnica.md)
 - Toolchain → [`toolchain.md`](toolchain.md)
 - Padrões → [`padroes_de_codigo.md`](padroes_de_codigo.md)

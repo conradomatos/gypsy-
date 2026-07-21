@@ -8,9 +8,10 @@ revisado: 2026-07-19
 
 # Padrões de código — Gypsy
 
-> **Escopo:** princípios de como escrever código nas três camadas. Nomes de pastas de
-> código **ainda não estão congelados** — as estruturas abaixo são **PROPOSTO** até o
-> scaffold ser aprovado no subprojeto correspondente.
+> **Escopo:** princípios de como escrever código nas três camadas.
+> **Layout de topo DECIDIDO (2026-07-20):** monorepo com `apps/engine`, `apps/backend`,
+> `apps/frontend` e `infra/`. A **pasta física nasce no scaffold** de cada app — não antes.
+> A **estrutura interna** de cada app abaixo segue **exemplo** (não congelada) até o scaffold.
 > Stack em [`stack_tecnica.md`](stack_tecnica.md) · nomenclatura em
 > [`convencoes_nomenclatura.md`](convencoes_nomenclatura.md).
 > Versão anterior (engines TS + Supabase + RLS) em
@@ -42,10 +43,10 @@ Frontend (React)  →  API (DRF)  →  Services (regra de negócio)  →  Engine
 - **Autorização** por auth do Django + permissions do DRF. Não usar RLS como mecanismo
   principal de autorização (era Supabase, revogado).
 
-Estrutura de exemplo (**PROPOSTO** — não congelar):
+Estrutura interna (exemplo — a interna não é congelada; o topo `apps/backend/` é DECIDIDO):
 
 ```
-backend/
+apps/backend/
   <dominio>/
     models.py
     services.py       # regra de negócio (escrita)
@@ -73,10 +74,10 @@ backend/
 - **Rastreabilidade:** todo número carrega fonte, data-base e flag de imposto quando
   aplicável (ver regra do projeto `rastreabilidade-precos`).
 
-Estrutura de exemplo (**PROPOSTO** — não congelar):
+Estrutura interna (exemplo — a interna não é congelada; o topo `apps/engine/` é DECIDIDO):
 
 ```
-engine/
+apps/engine/
   <modulo>/            # composicao_hh, bdi, dimensionador, ...
   data/                # tabelas normativas (constantes)
   tests/               # pytest, casos do Sandro + valores HOLLOS
@@ -95,7 +96,7 @@ engine/
 - **Validação de dados** na entrada de formulários e nas fronteiras da API.
 - O frontend consome **exclusivamente a API REST** — nunca acessa banco diretamente.
 
-Estrutura de exemplo (**PROPOSTO** — não congelar): definida no SP-02/scaffold do frontend.
+Estrutura interna: definida no SP-02/scaffold do frontend (topo `apps/frontend/` é DECIDIDO).
 
 ---
 

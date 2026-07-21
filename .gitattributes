@@ -1,0 +1,16 @@
+# Normalização de fim de linha (cross-platform: Windows + CI Linux)
+* text=auto eol=lf
+
+# Scripts que exigem CRLF no Windows
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binários / planilhas — nunca normalizar nem fazer diff textual
+*.xlsx binary
+*.xlsm binary
+*.xlk  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.pdf  binary
