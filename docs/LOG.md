@@ -6,6 +6,32 @@
 
 ---
 
+## 2026-07-20 (SP-01) — Reorg estrutural + governança AGENTS.md (Conrado + Claude)
+
+**Feito (2 PRs empilhados):**
+- **PR rename** (`chore/rename-estrutura-docs`): 98 pastas de `docs/` renomeadas para
+  minúsculo-hífen via `git mv` (histórico preservado; códigos M-###/BD-#/C1-3/MC-### mantidos;
+  `CIGANA→cigana`). Referências textuais atualizadas em 21 `.md`. `git grep` de token antigo = 0.
+- **PR governança** (`chore/governanca-agents-md`, base no rename):
+  - `AGENTS.md` na raiz (canônico, PRD + limites SEMPRE/PERGUNTAR ANTES/NUNCA) e em
+    `destilacao/` (herda raiz, branding CostAI→Gypsy corrigido). `CLAUDE.md` → `@AGENTS.md`.
+  - `registro_de_decisoes`: estrutura de código **DECIDIDA** (monorepo `apps/{engine,backend,
+    frontend}` + `infra/`; pasta só no scaffold). `padroes_de_codigo` PROPOSTO→DECIDIDO (topo).
+  - `revisao_e_ci.md` (PROPOSTO): desenho do revisor adversarial de PR + CI gate.
+  - Infra barata: `.gitattributes`, `.editorconfig`, `.env.example`, `SECURITY.md`,
+    `.gitignore` (Node), `.github/` (PR/issue templates, CODEOWNERS).
+
+**Decisão de governança confirmada:** Claude Code não auto-carrega `AGENTS.md` (só CLAUDE.md
++ `.claude/rules/`); usa-se import nativo `@AGENTS.md` (docs oficiais). `.claude/rules/`
+permanecem.
+
+**Pendências ao sair:**
+- [ ] Revisar/mergear PR rename e PR governança (Conrado — revisar antes da main).
+- [ ] Branch protection na `main` (via `gh`/UI) — pendente de autorização; `gh` não está no PATH.
+- [ ] Materializar `apps/*` e toolchain concreta → no SP do scaffold.
+
+---
+
 ## 2026-07-19 (SP-01) — Adequação da fundação para Django + React (Conrado + Claude)
 
 **Feito:**
